@@ -8,6 +8,7 @@ public class PlayerControls : MonoBehaviour
     public float speed;
     public Vector3 myWay;
     public float vecMag = 0f;
+    public Vector3 armWay;
     public Transform bananba;
     // [SerializeField]
     //{ get; private set; }
@@ -19,7 +20,7 @@ public class PlayerControls : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         myWay = new Vector3(0, 0, 0);
-       
+        armWay = new Vector3(0, 0, 0);
     }
 
     // Update is called once per frame
@@ -34,8 +35,11 @@ public class PlayerControls : MonoBehaviour
     {
         //There's a castarm in the scene to fix the arms rotating on y instead of z
         //Fix this so it actually spins arms
-        bananba.localRotation = Quaternion.LookRotation(myWay, Vector3.up);
-        hidArms.transform.localRotation = Quaternion.Euler(-151.6f,0f,bananba.rotation.y);
+        // bananba.localRotation = Quaternion.Euler(-151.6f,0f,bananba.rotation.y);
+        //Sets arm rotation to go on xy instead of xz, hopefully fixing this
+        armWay.x = myWay.x;
+        armWay.y = myWay.z;
+        hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward); 
     }
 
     //Stroll now has movement that accounts for diagonals on Keyboard
