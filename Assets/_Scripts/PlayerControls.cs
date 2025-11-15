@@ -9,7 +9,7 @@ public class PlayerControls : MonoBehaviour
     public Vector3 myWay;
     public float vecMag = 0f;
     public Vector3 armWay;
-    public Transform bananba;
+
     // [SerializeField]
     //{ get; private set; }
     private Rigidbody rb;
@@ -33,10 +33,9 @@ public class PlayerControls : MonoBehaviour
 
     private void SpinArms()
     {
-        //There's a castarm in the scene to fix the arms rotating on y instead of z
-        //Fix this so it actually spins arms
-        // bananba.localRotation = Quaternion.Euler(-151.6f,0f,bananba.rotation.y);
-        //Sets arm rotation to go on xy instead of xz, hopefully fixing this
+        //In the unity scene, the arms are attached to a parent object which has rotations set so this spins properly.
+
+        //Sets arm rotation to go on xy instead of xz, preventing arms from spinning on the wrong axis
         armWay.x = myWay.x;
         armWay.y = myWay.z;
         hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward); 
