@@ -7,7 +7,8 @@ public class PlayerControls : MonoBehaviour
     public float rollForce;
     public float speed;
     public Vector3 myWay;
-
+    // [SerializeField]
+    //{ get; private set; }
     private Rigidbody rb;
 
     // Start is called before the first frame update
