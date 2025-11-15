@@ -8,6 +8,9 @@ public class GrabsAndThrow : MonoBehaviour
     public float secondsHeld = 0f;
     public float targetTimeHeld = 0.75f;
     public Color handShade;
+    public KeyCode kbGrab;
+    public KeyCode crGrab;
+    public KeyCode crGrab2;
     //public int heldShade = 0;
     // Start is called before the first frame update
     void Start()
@@ -19,13 +22,14 @@ public class GrabsAndThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        //Controls are Space, A, or B on controller for grab
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
         {
             secondsHeld = 0f;
         }
 
        
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(crGrab) || Input.GetKey(crGrab2))
         {
             secondsHeld += Time.deltaTime;
             //Hands can shake here as part of an animation
@@ -44,7 +48,7 @@ public class GrabsAndThrow : MonoBehaviour
 
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2))
         {
             
             float timePct = secondsHeld / targetTimeHeld;
