@@ -468,6 +468,7 @@ GameObject:
   - component: {fileID: 449820334}
   - component: {fileID: 449820333}
   - component: {fileID: 449820332}
+  - component: {fileID: 449820335}
   m_Layer: 0
   m_Name: Arms
   m_TagString: Untagged
@@ -566,6 +567,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449820330}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &449820335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449820330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f14e6c60f2a1fae45b55008b11bfca65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myHands:
+  - {fileID: 123853499}
+  - {fileID: 81406439}
+  secondsHeld: 0
+  targetTimeHeld: 0.36
+  handShade: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1051814007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,7 +1047,6 @@ MonoBehaviour:
   myWay: {x: 0, y: 0, z: 0}
   vecMag: 0
   armWay: {x: 0, y: 0, z: 0}
-  bananba: {fileID: 386070924}
   hidArms: {fileID: 449820330}
 --- !u!54 &1416744238
 Rigidbody:
