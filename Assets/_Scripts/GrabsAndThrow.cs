@@ -5,73 +5,179 @@ using UnityEngine;
 public class GrabsAndThrow : MonoBehaviour
 {
     public GameObject[] myHands;
-    public float secondsHeld = 0f;
-    public float targetTimeHeld = 0.75f;
-    public Color handShade;
-    public KeyCode kbGrab;
+    public bool counterHit;
+    private bool inTheLoop;
+    public bool endLag;
+    public bool btnPress;
+
+    public float launchForce = 3f;
+    public float launchMult;
+    private bool grabby;
+
+    public float secondsHeld = 0f; //Public so it's visible in editor
+    public float targetTimeHeld = 0.75f; //Public to be editable in editor
+    public float coolDown = 0.4f; // "Visible" delay, shorter than actual delay. Public so this can be changed in editor.
+
+    public Vector3 aimAt; //Vector borrowed from PlayerControls.cs so the arms know where the player is aiming.
+
+
+    public Color handShade; //Purple
+
+    public KeyCode kbGrab; //These 3 are changable in Editor
     public KeyCode crGrab;
     public KeyCode crGrab2;
+
     //public int heldShade = 0;
     // Start is called before the first frame update
     void Start()
     {
         secondsHeld = 0f;
         handShade = new Color(0.7f, 0.2f, 0.7f, 1f);
+        counterHit = false;
+        endLag = false;
+        btnPress = false;
+        aimAt = new Vector3(0, 0, 0);
+        grabby = false;
+        launchMult = 1f;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Controls are Space, A, or B on controller for grab
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
+        if (counterHit) //If player is in endlag
         {
-            secondsHeld = 0f;
+            
+            Invoke("reCastHands", 0.2f);
+
+            if (!endLag) //ready cannot begin without reCastHands giving the go-ahead
+            {
+                Invoke("readyHands", 0.2f + coolDown);
+            }
+            
         }
 
-       
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(crGrab) || Input.GetKey(crGrab2))
+        else if (!counterHit) //If player is not in endlag
         {
-            secondsHeld += Time.deltaTime;
-            //Hands can shake here as part of an animation
-            // heldShade = (int)secondsHeld * 80;
-            //handShade = (secondsHeld*80f , 0f, (2f * secondsHeld*80f) / 3f, 1f);
-            if (secondsHeld < targetTimeHeld * 1.25f)
+
+            //Controls are Space, A, or B on controller for grab
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
             {
+                btnPress = true;
+                secondsHeld = 0f;
                 myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
                 myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
             }
-            else
+
+
+            if (Input.GetKey(KeyCode.Space) || Input.GetKey(crGrab) || Input.GetKey(crGrab2))
             {
-                myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
-                myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
+                secondsHeld += Time.deltaTime;
+                //Hands can shake here as part of an animation
+                // heldShade = (int)secondsHeld * 80;
+                //handShade = (secondsHeld*80f , 0f, (2f * secondsHeld*80f) / 3f, 1f);
+                if (secondsHeld < targetTimeHeld * 1.25f)
+                {
+                    myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
+                    myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
+                }
+                else
+                {
+                    myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
+                    myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
+                }
+
             }
 
-        }
+            if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2))
+            {
 
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2))
+                float timePct = secondsHeld / targetTimeHeld;
+                if (timePct >= 1.0f)
+                {
+                    timePct = 1.0f;
+
+                    myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.red, 1f);
+                    myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.red, 1f);
+                    //Hands lunge forwards for grab, another animation
+                    //LaunchGrab()
+
+                    launchMult = 1f;
+                    mageGrip();
+                    grabby = true;
+                    counterHit = true;
+                    endLag = true;
+                }
+
+                else
+                {
+                    timePct = 0f;
+
+                    myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.blue, 1f);
+                    myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.blue, 1f);
+                    //Player dash grab goes here
+                    Debug.Log("Dash Grab!");
+                    counterHit = true;
+                    endLag = true;
+                }
+
+            }
+        }
+        
+        if (grabby)
         {
-            
-            float timePct = secondsHeld / targetTimeHeld;
-            if (timePct >= 1.0f)
-            {
-                timePct = 1.0f;
-     
-                myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.red, 1f);
-                myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.red, 1f);
-                //Hands lunge forwards for grab, another animation
-                //LaunchGrab()
-            }
+            mageGrip();
+        }
 
-            else
-            {
-                timePct = 0f;
-               
-               myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.blue, 1f);
-                myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.blue, 1f);
-                //Player dash grab goes here
-            }
+    }
+
+    private void mageGrip()
+    {
+        
+        if (endLag)
+        {
+            Debug.Log("Launch Grab!");
 
         }
+
+        //This is a rough stand in for an animation, leaves off where you end up if you move in a constant direction at full(vecMag = 1) speed.
+        transform.position += launchForce * launchMult * aimAt * Time.deltaTime;
+        launchMult = launchMult-(Time.deltaTime * 4f);
+    }
+
+    private void readyHands()
+    {
+        if (counterHit)
+        {
+            Debug.Log("Hands are ready.");
+            myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, 1f);
+            myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, 1f);
+        }
+
+
+        grabby = false;
+        counterHit = false;
+        secondsHeld = 0f;
+        btnPress = false;
+       
+    }
+
+    private void reCastHands()
+    {
+        if (endLag)
+        {
+            Debug.Log("Hands are recasting...");
+            secondsHeld = 0f;   
+        }
+
+        if (counterHit)
+        {
+            secondsHeld += Time.deltaTime;
+            myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, secondsHeld / (coolDown*1.5f));
+            myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, secondsHeld / (coolDown*1.5f));
+            
+        }
+        endLag = false; //Go ahead for running readyHands, doesn't reset timer float.
 
     }
 }

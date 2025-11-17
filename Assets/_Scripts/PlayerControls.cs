@@ -8,12 +8,15 @@ public class PlayerControls : MonoBehaviour
     public float speed;
     public Vector3 myWay;
     public float vecMag = 0f;
+    public float deadZone = 0.02f;
     public Vector3 armWay;
 
     // [SerializeField]
     //{ get; private set; }
     private Rigidbody rb;
     public GameObject hidArms;
+
+    public GrabsAndThrow grabThrows;
 
     // Start is called before the first frame update
     void Start()
@@ -36,9 +39,27 @@ public class PlayerControls : MonoBehaviour
         //In the unity scene, the arms are attached to a parent object which has rotations set so this spins properly.
 
         //Sets arm rotation to go on xy instead of xz, preventing arms from spinning on the wrong axis
-        armWay.x = myWay.x;
-        armWay.y = myWay.z;
-        hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward); 
+        //TODO: Fix this so arms don't snap to position, moving towards that position instead. Could do some time.deltaTime stuff with the armway calc?
+        if (vecMag > deadZone && !grabThrows.btnPress)
+        {
+            armWay.x = myWay.x;
+            armWay.y = myWay.z;
+            hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
+        }
+        else //Only changes aim direction if the player is moving, otherwise, arms should stay still
+        {
+            hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
+            if (grabThrows.endLag)
+            {
+                grabThrows.aimAt.x = armWay.x;
+                grabThrows.aimAt.z = armWay.z;
+                Vector3.Normalize(grabThrows.aimAt);
+            }
+            
+
+
+        }
+        
     }
 
     //Stroll now has movement that accounts for diagonals on Keyboard
@@ -77,7 +98,11 @@ public class PlayerControls : MonoBehaviour
         myWay.x = xDir;
         myWay.z = zDir;
 
-        transform.position += myWay * speed * Time.deltaTime;
+        if (vecMag > deadZone)
+        {
+            transform.position += myWay * speed * Time.deltaTime;
+        }
+
 
     }
 

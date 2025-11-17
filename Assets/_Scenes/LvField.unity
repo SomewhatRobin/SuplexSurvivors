@@ -172,9 +172,9 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -185,7 +185,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81406439}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -278,9 +278,9 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -291,7 +291,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123853499}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -513,7 +513,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -526,7 +526,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449820330}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -584,8 +584,15 @@ MonoBehaviour:
   myHands:
   - {fileID: 123853499}
   - {fileID: 81406439}
+  counterHit: 0
+  endLag: 0
+  btnPress: 0
+  launchForce: 24
+  launchMult: 0
   secondsHeld: 0
   targetTimeHeld: 0.36
+  coolDown: 0.4
+  aimAt: {x: 0, y: 0, z: 0}
   handShade: {r: 0, g: 0, b: 0, a: 0}
   kbGrab: 32
   crGrab: 330
@@ -1079,7 +1086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccfcaa74639af2c4daf147b01868b639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stuckHere: {x: 89.98022, y: 0, z: 180}
+  stuckHere: {x: 155, y: 0, z: 180}
 --- !u!64 &1398880965
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1276,8 +1283,10 @@ MonoBehaviour:
   speed: 5
   myWay: {x: 0, y: 0, z: 0}
   vecMag: 0
+  deadZone: 0.02
   armWay: {x: 0, y: 0, z: 0}
   hidArms: {fileID: 449820330}
+  grabThrows: {fileID: 449820335}
 --- !u!54 &1416744238
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1698,7 +1707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccfcaa74639af2c4daf147b01868b639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stuckHere: {x: 89.98022, y: 0, z: 180}
+  stuckHere: {x: 155, y: 0, z: 180}
 --- !u!64 &2049573572
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1741,7 +1750,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9a74d01935bba1c4aa3cb6c85a269a07, type: 2}
+  - {fileID: 2100000, guid: 7faa32e6fd0335541961eab0501c2265, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
