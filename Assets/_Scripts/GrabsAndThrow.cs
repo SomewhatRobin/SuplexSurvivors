@@ -7,9 +7,11 @@ public class GrabsAndThrow : MonoBehaviour
     //Player's hands, visible
     public GameObject[] myHands;
     //Player's grab target, invis(?)
-    public Transform[] waypoints;
+    public Transform waypoint;
+    public GameObject armCast; //Set up for below
+    public Transform wizRobe; //Roughly the player's position
     private Vector3 currentTarget; //From Ass4, platform movement for the grab
-    private int nextTarget;
+    public bool armStretch; //Are the arms going to(true) or from(false) the player?
     public float tolerance = 0.05f; //From Ass4, tolerance for not quite reaching the target
 
     //logic stuff for delays and input reading
@@ -27,7 +29,7 @@ public class GrabsAndThrow : MonoBehaviour
     public float targetTimeHeld = 0.75f; //Public to be editable in editor
     public float coolDown = 0.4f; // "Visible" delay, shorter than actual delay. Public so this can be changed in editor.
 
-    public Vector3 aimAt; //Vector borrowed from PlayerControls.cs so the arms know where the player is aiming.
+  
 
 
     public Color handShade; //Purple
@@ -45,11 +47,12 @@ public class GrabsAndThrow : MonoBehaviour
         counterHit = false;
         endLag = false;
         btnPress = false;
-        aimAt = new Vector3(0, 0, 0);
+       
         grabby = false;
         launchMult = 1f;
-        currentTarget = waypoints[1].position;
-        nextTarget = 0;
+        currentTarget = waypoint.position;
+        armStretch = true;
+        wizRobe = armCast.GetComponentInParent<Transform>();
 
     }
 
@@ -151,29 +154,39 @@ public class GrabsAndThrow : MonoBehaviour
 
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, currentTarget, launchForce * launchMult * Time.deltaTime);
+        if (armStretch)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, currentTarget, launchForce * launchMult * Time.deltaTime);
+            launchMult = 1.0f * (Vector3.Distance(transform.position, currentTarget));
+        }
+
+        else
+        {
+            if (Vector3.Distance(transform.position, Vector3.zero) < tolerance)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, wizRobe.position, launchForce * launchMult * Time.deltaTime);
+                launchMult = 0.2f + (0.9f * (Vector3.Distance(transform.position, wizRobe.position)));
+            }
+
+            else
+            {
+                armStretch = true;
+            }
+        }
+
         //This is editable, so we can make this into an upgrade
-        // transform.position += launchForce * launchMult * aimAt * Time.deltaTime;
+
         if (Vector3.Distance(currentTarget, transform.position) < tolerance)
         {
             SwitchTargets();
         }
 
-        launchMult = 1.0f * (Vector3.Distance(transform.position, currentTarget)) ;
+       
     }
 
     private void SwitchTargets()
     {
-        currentTarget = waypoints[nextTarget].position;
-
-        if (nextTarget == 0)
-        {
-            nextTarget = 1;
-        }
-        else
-        {
-            nextTarget = 0;
-        }
+        armStretch = false;
     }
 
     private void readyHands()

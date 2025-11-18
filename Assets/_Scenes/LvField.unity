@@ -585,9 +585,10 @@ MonoBehaviour:
   myHands:
   - {fileID: 123853499}
   - {fileID: 81406439}
-  waypoints:
-  - {fileID: 623236504}
-  - {fileID: 1416744236}
+  waypoint: {fileID: 623236504}
+  armCast: {fileID: 386070923}
+  wizRobe: {fileID: 0}
+  armStretch: 0
   tolerance: 0.05
   counterHit: 0
   endLag: 0
@@ -597,7 +598,6 @@ MonoBehaviour:
   secondsHeld: 0
   targetTimeHeld: 0.36
   coolDown: 0.4
-  aimAt: {x: 0, y: 0, z: 0}
   handShade: {r: 0, g: 0, b: 0, a: 0}
   kbGrab: 32
   crGrab: 330

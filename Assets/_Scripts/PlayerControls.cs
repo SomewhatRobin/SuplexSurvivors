@@ -57,12 +57,7 @@ public class PlayerControls : MonoBehaviour
         {
             hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
            // Don't update armTango here, the target does not move when the button is held.
-            if (grabThrows.endLag)
-            {
-                grabThrows.aimAt.x = armWay.x;
-                grabThrows.aimAt.z = armWay.z;
-                Vector3.Normalize(grabThrows.aimAt);
-            }
+
             
 
 
