@@ -9,12 +9,14 @@ public class PlayerControls : MonoBehaviour
     public Vector3 myWay;
     public float vecMag = 0f;
     public float deadZone = 0.02f;
+    public float targDist = 6f;
     public Vector3 armWay;
 
     // [SerializeField]
     //{ get; private set; }
     private Rigidbody rb;
     public GameObject hidArms;
+    public GameObject armTango;
 
     public GrabsAndThrow grabThrows;
 
@@ -42,13 +44,19 @@ public class PlayerControls : MonoBehaviour
         //TODO: Fix this so arms don't snap to position, moving towards that position instead. Could do some time.deltaTime stuff with the armway calc?
         if (vecMag > deadZone && !grabThrows.btnPress)
         {
+            //Mumbo jumbo to get the Arms to face the direction the player is moving in.
             armWay.x = myWay.x;
             armWay.y = myWay.z;
             hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
+
+            //Piggybacking off mumjumbo to get arm target to rotate with arms, at a set (editable!) distance from the player
+            armTango.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
+            armTango.transform.position = transform.position + (Vector3.Normalize(myWay) * targDist);
         }
         else //Only changes aim direction if the player is moving, otherwise, arms should stay still
         {
             hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
+           // Don't update armTango here, the target does not move when the button is held.
             if (grabThrows.endLag)
             {
                 grabThrows.aimAt.x = armWay.x;

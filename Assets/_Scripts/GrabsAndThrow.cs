@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class GrabsAndThrow : MonoBehaviour
 {
+    //Player's hands, visible
     public GameObject[] myHands;
+    //Player's grab target, invis(?)
+    public Transform[] waypoints;
+    private Vector3 currentTarget; //From Ass4, platform movement for the grab
+    private int nextTarget;
+    public float tolerance = 0.05f; //From Ass4, tolerance for not quite reaching the target
+
+    //logic stuff for delays and input reading
     public bool counterHit;
     private bool inTheLoop;
     public bool endLag;
     public bool btnPress;
 
+    //Variables for launch grab
     public float launchForce = 3f;
     public float launchMult;
     private bool grabby;
@@ -39,6 +48,8 @@ public class GrabsAndThrow : MonoBehaviour
         aimAt = new Vector3(0, 0, 0);
         grabby = false;
         launchMult = 1f;
+        currentTarget = waypoints[1].position;
+        nextTarget = 0;
 
     }
 
@@ -140,9 +151,29 @@ public class GrabsAndThrow : MonoBehaviour
 
         }
 
-        //This is a rough stand in for an animation, leaves off where you end up if you move in a constant direction at full(vecMag = 1) speed.
-        transform.position += launchForce * launchMult * aimAt * Time.deltaTime;
-        launchMult = launchMult-(Time.deltaTime * 4f);
+        transform.position = Vector3.MoveTowards(transform.position, currentTarget, launchForce * launchMult * Time.deltaTime);
+        //This is editable, so we can make this into an upgrade
+        // transform.position += launchForce * launchMult * aimAt * Time.deltaTime;
+        if (Vector3.Distance(currentTarget, transform.position) < tolerance)
+        {
+            SwitchTargets();
+        }
+
+        launchMult = 1.0f * (Vector3.Distance(transform.position, currentTarget)) ;
+    }
+
+    private void SwitchTargets()
+    {
+        currentTarget = waypoints[nextTarget].position;
+
+        if (nextTarget == 0)
+        {
+            nextTarget = 1;
+        }
+        else
+        {
+            nextTarget = 0;
+        }
     }
 
     private void readyHands()
