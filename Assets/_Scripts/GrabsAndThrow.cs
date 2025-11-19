@@ -50,7 +50,7 @@ public class GrabsAndThrow : MonoBehaviour
        
         grabby = false;
         launchMult = 1f;
-        currentTarget = waypoint.position;
+        currentTarget = waypoint.localPosition;
         armStretch = true;
         wizRobe = armCast.GetComponentInParent<Transform>();
 
@@ -156,16 +156,16 @@ public class GrabsAndThrow : MonoBehaviour
 
         if (armStretch)
         {
-            transform.position = Vector3.MoveTowards(transform.position, currentTarget, launchForce * launchMult * Time.deltaTime);
-            launchMult = 1.0f * (Vector3.Distance(transform.position, currentTarget));
+            transform.position = Vector3.MoveTowards(transform.localPosition, currentTarget, launchForce);
+            //launchMult = 1.0f * (Vector3.Distance(transform.position, currentTarget));
         }
 
         else
         {
             if (Vector3.Distance(transform.position, Vector3.zero) < tolerance)
             {
-                transform.position = Vector3.MoveTowards(transform.position, wizRobe.position, launchForce * launchMult * Time.deltaTime);
-                launchMult = 0.2f + (0.9f * (Vector3.Distance(transform.position, wizRobe.position)));
+                transform.localPosition = Vector3.MoveTowards(transform.localPosition, wizRobe.localPosition, launchForce);
+               // launchMult = 0.2f + (0.9f * (Vector3.Distance(transform.position, wizRobe.position)));
             }
 
             else

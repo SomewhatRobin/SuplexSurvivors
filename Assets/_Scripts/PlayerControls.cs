@@ -50,7 +50,7 @@ public class PlayerControls : MonoBehaviour
             hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
 
             //Piggybacking off mumjumbo to get arm target to rotate with arms, at a set (editable!) distance from the player
-            armTango.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
+            armTango.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.back);
             armTango.transform.position = transform.position + (Vector3.Normalize(myWay) * targDist);
         }
         else //Only changes aim direction if the player is moving, otherwise, arms should stay still
