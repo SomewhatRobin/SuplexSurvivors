@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;   // Prefab del enemigo
-    public Transform spawnPoint;     // Lugar donde aparecen
-    public float spawnInterval = 2f; // Cada cuántos segundos spawnea
-    public int totalEnemies = 10;    // Cuántos enemigos generar
+    public GameObject enemyPrefab;   // Enemy prefab
+    public Transform spawnPoint;     // Place where enemies will spawn
+    public float spawnInterval = 2f; // Intervals inbetween spawns
+    public int totalEnemies = 10;    // Number of enemies generated 
 
     private void Start()
     {
@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < totalEnemies; i++)
         {
             Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
-            Debug.Log($"Enemigo #{i + 1} spawneado en {Time.time} segundos");
+            Debug.Log($"Enemy #{i + 1} Spawned in {Time.time} seconds");
             yield return new WaitForSeconds(spawnInterval);
         }
     }
