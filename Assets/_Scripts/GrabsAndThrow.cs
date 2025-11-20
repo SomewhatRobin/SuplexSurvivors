@@ -24,6 +24,7 @@ public class GrabsAndThrow : MonoBehaviour
     public float launchForce = 3f;
     public float launchMult;
     private bool grabby;
+    public bool goFar, goNear, doneGrab; //For the grab going where it shou
 
     public float secondsHeld = 0f; //Public so it's visible in editor
     public float targetTimeHeld = 0.75f; //Public to be editable in editor
@@ -52,6 +53,8 @@ public class GrabsAndThrow : MonoBehaviour
         launchMult = 1f;
         currentTarget = waypoint[0].position;
         armStretch = true;
+        goFar = true;
+        goNear = false;
         //wizRobe = armCast.GetComponentInParent<Transform>();
 
     }
@@ -101,6 +104,11 @@ public class GrabsAndThrow : MonoBehaviour
                     myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
                 }
 
+                if (secondsHeld > targetTimeHeld * 0.75f && !goFar)
+                {
+                     goFar = true;
+                }
+
             }
 
             if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2))
@@ -117,6 +125,7 @@ public class GrabsAndThrow : MonoBehaviour
                     //LaunchGrab()
 
                     launchMult = 1f;
+                    goFar = true;
                     mageGrip();
                     grabby = true;
                     counterHit = true;
@@ -154,17 +163,22 @@ public class GrabsAndThrow : MonoBehaviour
 
         }
 
-        if (armStretch)
+        if (armStretch && goFar)
         {
             transform.position = Vector3.MoveTowards(transform.position, currentTarget, launchForce);
             //launchMult = 1.0f * (Vector3.Distance(transform.position, currentTarget));
         }
 
-        else
+        else if (!armStretch && goNear)
         {
                 transform.position = Vector3.MoveTowards(transform.position, currentTarget, launchForce);
                // launchMult = 0.2f + (0.9f * (Vector3.Distance(transform.position, wizRobe.position)));
 
+        }
+
+        else
+        {
+            transform.localPosition = Vector3.zero;
         }
 
         //This is editable, so we can make this into an upgrade
@@ -185,13 +199,18 @@ public class GrabsAndThrow : MonoBehaviour
     {
         if (armStretch)
         {
+            
             currentTarget = waypoint[1].position;
             armStretch = false;
+            goFar = false;
+            goNear = true;
         }
         else
         {
             currentTarget = waypoint[0].position;
             armStretch = true;
+            goNear = false;
+            doneGrab = true;
         }
         
     }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6198940159758639275}
   - component: {fileID: 4349523809607610309}
   m_Layer: 0
-  m_Name: TestEnemy
+  m_Name: TestEnemyKO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -47,15 +47,29 @@ public class PlayerControls : MonoBehaviour
             //Mumbo jumbo to get the Arms to face the direction the player is moving in.
             armWay.x = myWay.x;
             armWay.y = myWay.z;
-            hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
+
+            if (armWay != Vector3.zero)
+            {
+                hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
+            }
+           
 
             //Piggybacking off mumjumbo to get arm target to rotate with arms, at a set (editable!) distance from the player
-            armTango.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.back);
-            armTango.transform.position = transform.position + (Vector3.Normalize(myWay) * targDist);
+            if (armWay != Vector3.zero)
+            {
+                armTango.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.back);
+                armTango.transform.position = transform.position + (Vector3.Normalize(myWay) * targDist);
+            }
+            
         }
         else //Only changes aim direction if the player is moving, otherwise, arms should stay still
         {
-            hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
+
+            if (armWay != Vector3.zero)
+            {
+                hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
+            }
+
            // Don't update armTango here, the target does not move when the button is held.
 
             
