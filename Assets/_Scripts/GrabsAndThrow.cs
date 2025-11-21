@@ -23,7 +23,7 @@ public class GrabsAndThrow : MonoBehaviour
     //Variables for launch grab
     public float launchForce = 3f;
     public float launchMult;
-    private bool grabby;
+    public bool grabby;
     public bool goFar, goNear, doneGrab; //For the grab going where it shou
 
     public float secondsHeld = 0f; //Public so it's visible in editor
@@ -107,12 +107,15 @@ public class GrabsAndThrow : MonoBehaviour
                 if (secondsHeld > targetTimeHeld * 0.75f && !goFar)
                 {
                      goFar = true;
+                    doneGrab = false;
                 }
 
             }
 
             if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2))
             {
+
+                btnPress = false; //Not pressing a button when you stop pressing a button
 
                 float timePct = secondsHeld / targetTimeHeld;
                 if (timePct >= 1.0f)
@@ -165,13 +168,13 @@ public class GrabsAndThrow : MonoBehaviour
 
         if (armStretch && goFar)
         {
-            transform.position = Vector3.MoveTowards(transform.position, currentTarget, launchForce);
+            transform.position = Vector3.MoveTowards(transform.position, waypoint[0].position, launchForce);
             //launchMult = 1.0f * (Vector3.Distance(transform.position, currentTarget));
         }
 
         else if (!armStretch && goNear)
         {
-                transform.position = Vector3.MoveTowards(transform.position, currentTarget, launchForce);
+                transform.position = Vector3.MoveTowards(transform.position, waypoint[1].position, launchForce);
                // launchMult = 0.2f + (0.9f * (Vector3.Distance(transform.position, wizRobe.position)));
 
         }
@@ -183,12 +186,12 @@ public class GrabsAndThrow : MonoBehaviour
 
         //This is editable, so we can make this into an upgrade
 
-        if (Vector3.Distance(currentTarget, transform.position) < tolerance && armStretch)
+        if (Vector3.Distance(waypoint[0].position, transform.position) < tolerance && armStretch)
         {
             SwitchTargets();
         }
 
-        else if (Vector3.Distance(currentTarget, transform.position) < tolerance && !armStretch)
+        else if (Vector3.Distance(waypoint[1].position, transform.position) < tolerance && !armStretch)
         {
             SwitchTargets();
         }
@@ -200,14 +203,14 @@ public class GrabsAndThrow : MonoBehaviour
         if (armStretch)
         {
             
-            currentTarget = waypoint[1].position;
+            //currentTarget = waypoint[1].position;
             armStretch = false;
             goFar = false;
             goNear = true;
         }
         else
         {
-            currentTarget = waypoint[0].position;
+            //currentTarget = waypoint[0].position;
             armStretch = true;
             goNear = false;
             doneGrab = true;
@@ -228,7 +231,7 @@ public class GrabsAndThrow : MonoBehaviour
         grabby = false;
         counterHit = false;
         secondsHeld = 0f;
-        btnPress = false;
+        
        
     }
 
