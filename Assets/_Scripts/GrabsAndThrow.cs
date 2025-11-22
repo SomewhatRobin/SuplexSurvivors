@@ -168,15 +168,20 @@ public class GrabsAndThrow : MonoBehaviour
 
         if (armStretch && goFar)
         {
-            transform.position = Vector3.MoveTowards(transform.position, waypoint[0].position, launchForce);
-            //launchMult = 1.0f * (Vector3.Distance(transform.position, currentTarget));
+            //Has hands go towards the target, slowing down as it gets further from the player
+            transform.position = Vector3.MoveTowards(transform.position, waypoint[0].position, launchForce *
+                (Vector3.Distance(transform.position, waypoint[0].position)) + (launchForce/3f));
+            //This has the base speed get multiplied by the distance, and has a third of the base speed added to the final result
+            //Ensuring the arms are moving at a bare minimum pace no matter how close they get to the target
         }
 
         else if (!armStretch && goNear)
         {
-                transform.position = Vector3.MoveTowards(transform.position, waypoint[1].position, launchForce);
-               // launchMult = 0.2f + (0.9f * (Vector3.Distance(transform.position, wizRobe.position)));
-
+            //Has hands return from the target, speeding up as it gets closer to the player
+                transform.position = Vector3.MoveTowards(transform.position, waypoint[1].position, launchForce * 
+                    (Vector3.Distance(transform.position, waypoint[0].position)) + (launchForce / 3f));
+            //This also has the same deal
+            //Ensuring the arms are moving at a bare minimum pace no matter how far they are from the player
         }
 
         else
@@ -202,15 +207,12 @@ public class GrabsAndThrow : MonoBehaviour
     {
         if (armStretch)
         {
-            
-            //currentTarget = waypoint[1].position;
             armStretch = false;
             goFar = false;
             goNear = true;
         }
         else
         {
-            //currentTarget = waypoint[0].position;
             armStretch = true;
             goNear = false;
             doneGrab = true;

@@ -7,6 +7,8 @@ TagManager:
   - Grappler
   - Enemy
   - StkEnemy
+  - ProjEnemy
+  - KOEnemy
   layers:
   - Default
   - TransparentFX
