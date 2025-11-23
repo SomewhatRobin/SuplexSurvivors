@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2407298131228732152}
   - component: {fileID: 6198940159758639275}
   - component: {fileID: 4349523809607610309}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TestEnemyKO
   m_TagString: KOEnemy
   m_Icon: {fileID: 0}

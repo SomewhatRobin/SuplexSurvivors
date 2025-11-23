@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3151746473392358565}
   - component: {fileID: 2211105815675608972}
-  m_Layer: 0
+  - component: {fileID: 4880920395765642144}
+  m_Layer: 8
   m_Name: ThrownEnemy
   m_TagString: ProjEnemy
   m_Icon: {fileID: 0}
@@ -27,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3362144514239731605}
   m_Father: {fileID: 0}
@@ -60,6 +61,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &4880920395765642144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42727083911948082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d61bd978e6717994d98a109082f7b687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchDir: {x: 0, y: 0, z: 0}
 --- !u!1 &2790187933603477600
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,7 +87,7 @@ GameObject:
   - component: {fileID: 5949084589404382983}
   - component: {fileID: 4615352637606126569}
   - component: {fileID: 8951077664172375739}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyGraphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3a42f4989efff4c9c955de22a38253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 4.23
+  spinSpeed: 45
 --- !u!1 &8428704015951711732
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +207,7 @@ GameObject:
   - component: {fileID: 5265325338541378770}
   - component: {fileID: 2180842236914971864}
   - component: {fileID: 8280079050626512963}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

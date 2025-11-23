@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GrabsAndThrow : MonoBehaviour
 {
-    //Player's hands, visible
+    //0,1 are Player's hands, visible. 2 is held enemy above the player's head, invisible/inactive at start
     public GameObject[] myHands;
     //Player's grab target, invis(?)
     public Transform[] waypoint;
@@ -19,6 +19,7 @@ public class GrabsAndThrow : MonoBehaviour
     public int theHaul; //For communicating with Throw script, checks for whether an Enemy has been grabbed
     public bool inHand; //Split second variable so the arms can return, can tell that an enemy is in hand(s)
     public GameObject[] heldEnemy; //The enemy the player has grabbed, being held.
+    public Sprite[] theHeld; //Graphic for held enemy
 
     //logic stuff for delays and input reading
     public bool counterHit;
@@ -58,10 +59,10 @@ public class GrabsAndThrow : MonoBehaviour
        
         grabby = false;
         launchMult = 1f;
-        currentTarget = waypoint[0].position;
         armStretch = true;
         theHaul = 0;
         inHand = false;
+        myHands[2].SetActive(false);
         goFar = true;
         goNear = false;
         //wizRobe = armCast.GetComponentInParent<Transform>();
@@ -169,12 +170,14 @@ public class GrabsAndThrow : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
             {
                 btnPress = true;
-                Instantiate(heldEnemy[theHaul - 1], waypoint[2].position, Quaternion.Euler(-45f, 0f, 0f));
+               
             }
 
 
             if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2))
             {
+                myHands[2].SetActive(false);
+                Instantiate(heldEnemy[theHaul - 1], transform.position, Quaternion.Euler(-45f, 0f, 0f));
                 btnPress = false;
                 theHaul = 0;
                 inHand = false;
@@ -187,6 +190,7 @@ public class GrabsAndThrow : MonoBehaviour
     {
         if(theHaul != 0)
         {
+            myHands[2].SetActive(true);
             //Resets variables to mirror state after whiff
             goFar = false;
             goNear = false;
@@ -195,6 +199,8 @@ public class GrabsAndThrow : MonoBehaviour
             transform.position = waypoint[1].position; //Teleports(?) arms to player
             //Add something here to skip cooldowns, this should let you throw RIGHT away
             inHand = true;
+            SpriteRenderer sr = myHands[2].GetComponent<SpriteRenderer>();
+            sr.sprite = theHeld[theHaul-1];
 
         }
 

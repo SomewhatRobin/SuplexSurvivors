@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1726568006160342456}
   - component: {fileID: 4658931474917926322}
   - component: {fileID: 3174176877365274921}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hitbox
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 8455914792090523087}
   - component: {fileID: -4590474180225954074}
   - component: {fileID: -1300004655855099326}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HitboxedEnemytest
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 7190789385885801299}
   - component: {fileID: 894903378689160813}
   - component: {fileID: 2227372852851405443}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemyGraphic
   m_TagString: Enemy
   m_Icon: {fileID: 0}
