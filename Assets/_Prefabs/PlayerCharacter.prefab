@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4785676178165233243}
   - component: {fileID: 1598114352926365614}
   m_Layer: 7
-  m_Name: Cube (1)
+  m_Name: BlueZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 3460739516364067225}
   - component: {fileID: 6898555006880224934}
   m_Layer: 7
-  m_Name: Cube
+  m_Name: RedY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 1760503515435314357}
   m_Layer: 7
   m_Name: PlayerCharacter
-  m_TagString: Player
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1041,7 +1041,7 @@ GameObject:
   - component: {fileID: 3982640169213766867}
   m_Layer: 7
   m_Name: ArmCast
-  m_TagString: Player
+  m_TagString: Graphix
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1492,7 +1492,7 @@ GameObject:
   - component: {fileID: 3152613036373763514}
   - component: {fileID: 8565698401008405650}
   m_Layer: 7
-  m_Name: Cube (2)
+  m_Name: YelX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
