@@ -9,10 +9,16 @@ public class GrabsAndThrow : MonoBehaviour
     //Player's grab target, invis(?)
     public Transform[] waypoint;
     public GameObject armCast; //Set up for below
-   // public Transform wizRobe; //Roughly the player's position
+   
+    //Arm-merang goes to and from the player
     private Vector3 currentTarget; //From Ass4, platform movement for the grab
     public bool armStretch; //Are the arms going to(true) or from(false) the player?
     public float tolerance = 0.05f; //From Ass4, tolerance for not quite reaching the target
+   
+    //What the player has grabbed, whether the player has grabbed
+    public int theHaul; //For communicating with Throw script, checks for whether an Enemy has been grabbed
+    public bool inHand; //Split second variable so the arms can return, can tell that an enemy is in hand(s)
+    public GameObject[] heldEnemy; //The enemy the player has grabbed, being held.
 
     //logic stuff for delays and input reading
     public bool counterHit;
@@ -21,9 +27,10 @@ public class GrabsAndThrow : MonoBehaviour
     public bool btnPress;
 
     //Variables for launch grab
-    public float launchForce = 3f;
+    public float launchForce = 3f; //Change this in editor, is now
     public float launchMult;
-    public bool grabby;
+   
+    public bool grabby; //Is the grab in progress?
     public bool goFar, goNear, doneGrab; //For the grab going where it shou
 
     public float secondsHeld = 0f; //Public so it's visible in editor
@@ -53,6 +60,8 @@ public class GrabsAndThrow : MonoBehaviour
         launchMult = 1f;
         currentTarget = waypoint[0].position;
         armStretch = true;
+        theHaul = 0;
+        inHand = false;
         goFar = true;
         goNear = false;
         //wizRobe = armCast.GetComponentInParent<Transform>();
@@ -64,17 +73,17 @@ public class GrabsAndThrow : MonoBehaviour
     {
         if (counterHit) //If player is in endlag
         {
-            
+
             Invoke("reCastHands", 0.2f);
 
             if (!endLag) //ready cannot begin without reCastHands giving the go-ahead
             {
                 Invoke("readyHands", 0.2f + coolDown);
             }
-            
+
         }
 
-        else if (!counterHit) //If player is not in endlag
+        else if (!counterHit && !inHand) //If player is not in endlag
         {
 
             //Controls are Space, A, or B on controller for grab
@@ -106,7 +115,7 @@ public class GrabsAndThrow : MonoBehaviour
 
                 if (secondsHeld > targetTimeHeld * 0.75f && !goFar)
                 {
-                     goFar = true;
+                    goFar = true;
                     doneGrab = false;
                 }
 
@@ -149,16 +158,50 @@ public class GrabsAndThrow : MonoBehaviour
 
             }
         }
-        
+
         if (grabby)
         {
             mageGrip();
         }
 
-    }
+        if (inHand)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
+            {
+                btnPress = true;
+                Instantiate(heldEnemy[theHaul - 1], waypoint[2].position, Quaternion.Euler(-45f, 0f, 0f));
+            }
 
+
+            if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2))
+            {
+                btnPress = false;
+                theHaul = 0;
+                inHand = false;
+            }
+
+        }
+
+    }
     private void mageGrip()
     {
+        if(theHaul != 0)
+        {
+            //Resets variables to mirror state after whiff
+            goFar = false;
+            goNear = false;
+            armStretch = true;
+            doneGrab = true;
+            transform.position = waypoint[1].position; //Teleports(?) arms to player
+            //Add something here to skip cooldowns, this should let you throw RIGHT away
+            inHand = true;
+
+        }
+
+        if(inHand)
+        {
+            return;
+        }
         
         if (endLag)
         {
@@ -222,6 +265,11 @@ public class GrabsAndThrow : MonoBehaviour
 
     private void readyHands()
     {
+        if (!grabby)
+        {
+            return;
+        }
+
         if (counterHit)
         {
             Debug.Log("Hands are ready.");

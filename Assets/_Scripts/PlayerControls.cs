@@ -42,7 +42,7 @@ public class PlayerControls : MonoBehaviour
 
         //Sets arm rotation to go on xy instead of xz, preventing arms from spinning on the wrong axis
         //TODO: Fix this so arms don't snap to position, moving towards that position instead. Could do some time.deltaTime stuff with the armway calc?
-        if (vecMag > deadZone && !grabThrows.btnPress && (!grabThrows.grabby))
+        if (vecMag > deadZone && !grabThrows.btnPress && (!grabThrows.grabby) || grabThrows.inHand)
         {
             //Mumbo jumbo to get the Arms to face the direction the player is moving in.
             armWay.x = myWay.x;
