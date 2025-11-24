@@ -31,7 +31,7 @@ public class GrabsAndThrow : MonoBehaviour
     public float launchForce = 3f; //Change this in editor, is now
     public float launchMult;
    
-    public bool grabby; //Is the grab in progress?
+    public bool grabby, dash; //Is the grab in progress? Is the dash in use?
     public bool goFar, goNear, doneGrab; //For the grab going where it shou
 
     public float secondsHeld = 0f; //Public so it's visible in editor
@@ -56,7 +56,8 @@ public class GrabsAndThrow : MonoBehaviour
         counterHit = false;
         endLag = false;
         btnPress = false;
-       
+
+        dash = false;
         grabby = false;
         launchMult = 1f;
         armStretch = true;
@@ -74,6 +75,25 @@ public class GrabsAndThrow : MonoBehaviour
     {
         if (counterHit) //If player is in endlag
         {
+
+            if (secondsHeld > 4.0f * targetTimeHeld && !grabby)
+            {
+                //This is to fix some weird bug where the arms can get stuck. For now this goes nuclear and sets everything to a default-ish state
+                Debug.LogWarning("You wave your hands and wiggle your fingers...");
+                counterHit = false;
+                goFar = true;
+                doneGrab = false;
+                armStretch = true;
+                btnPress = false;
+                grabby = false;
+                inHand = false;
+                endLag = false;
+                theHaul = 0;
+                myHands[2].SetActive(false);
+                secondsHeld = 0f;
+
+            }
+
 
             Invoke("reCastHands", 0.2f);
 
@@ -134,12 +154,11 @@ public class GrabsAndThrow : MonoBehaviour
 
                     myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.red, 1f);
                     myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.red, 1f);
-                    //Hands lunge forwards for grab, another animation
-                    //LaunchGrab()
+
 
                     launchMult = 1f;
                     goFar = true;
-                    mageGrip();
+                    //mageGrip();
                     grabby = true;
                     counterHit = true;
                     endLag = true;
@@ -153,6 +172,7 @@ public class GrabsAndThrow : MonoBehaviour
                     myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.blue, 1f);
                     //Player dash grab goes here
                     Debug.Log("Dash Grab!");
+                    dash = true;
                     counterHit = true;
                     endLag = true;
                 }
@@ -271,7 +291,7 @@ public class GrabsAndThrow : MonoBehaviour
 
     private void readyHands()
     {
-        if (!grabby)
+        if (!grabby && !dash)
         {
             return;
         }
@@ -283,7 +303,7 @@ public class GrabsAndThrow : MonoBehaviour
             myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, 1f);
         }
 
-
+        dash = false;
         grabby = false;
         counterHit = false;
         secondsHeld = 0f;
