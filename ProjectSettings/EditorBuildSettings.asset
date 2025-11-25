@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/LvField.unity
+    guid: cf210c6ca24b5c54fabbe7479551897f
   m_configObjects: {}

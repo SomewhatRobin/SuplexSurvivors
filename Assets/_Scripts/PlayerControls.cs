@@ -15,6 +15,7 @@ public class PlayerControls : MonoBehaviour
     // [SerializeField]
     //{ get; private set; }
     private Rigidbody rb;
+    public SpriteRenderer theWiz;
     public GameObject hidArms;
     public GameObject armTango;
 
@@ -26,6 +27,7 @@ public class PlayerControls : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         myWay = new Vector3(0, 0, 0);
         armWay = new Vector3(0, 0, 0);
+        theWiz = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -95,10 +97,20 @@ public class PlayerControls : MonoBehaviour
             if (xDir > 0)
             {
                 xDir = xDir/vecMag;
+                if (!theWiz.flipX && !(grabThrows.endLag || grabThrows.btnPress) )
+                {
+                    theWiz.flipX = true;
+                }
+               
             }
             else
             {
                 xDir = xDir / vecMag;
+                if (theWiz.flipX && !(grabThrows.endLag || grabThrows.btnPress))
+                {
+                    theWiz.flipX = false;
+                }
+
             }
 
             if (zDir > 0)
