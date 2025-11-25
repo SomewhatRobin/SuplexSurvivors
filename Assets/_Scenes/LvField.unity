@@ -281,8 +281,8 @@ MonoBehaviour:
   - {fileID: 71911105}
   - {fileID: 71911104}
   - {fileID: 71911103}
-  spawnInterval: 2
-  totalEnemies: 50
+  spawnInterval: 1.5
+  totalEnemies: 500
 --- !u!4 &205730608 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5697108152123444629, guid: 9f3f7d21dee3a874d8ec611748c4ce45, type: 3}
@@ -567,6 +567,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 3095594984282002658, guid: f97703ca55756a94ea39f796d128348d, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3306641691722909954, guid: f97703ca55756a94ea39f796d128348d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.3813622
@@ -724,7 +728,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1075213175
 CapsuleCollider:
   m_ObjectHideFlags: 0
