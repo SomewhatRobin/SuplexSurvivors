@@ -11,6 +11,7 @@ TagManager:
   - KOEnemy
   - PlayerAim
   - Graphix
+  - OffScreen
   layers:
   - Default
   - TransparentFX

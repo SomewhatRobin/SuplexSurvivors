@@ -26,6 +26,7 @@ public class ThrowEmAll : MonoBehaviour
         {
             if (collision.transform.CompareTag("Enemy"))
             {
+                GameManager.Score += 5; //Another Placeholder, can use EXP instead, but this should be less than the score you get from hitting an enemy.
                 gThoreau.theHaul = 1; //Making this an int instead of a bool so it can work with bigger enemies
                 holdEm = true;
                 Destroy(collision.transform.parent.gameObject);

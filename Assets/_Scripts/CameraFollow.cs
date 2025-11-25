@@ -11,8 +11,7 @@ public class CameraFollow : MonoBehaviour
     public float xOffset = -4.0f;
     public float zOffset = -10.0f;
 
-    public Vector3 topLeft;
-    public Vector3 botRight;
+   
     public GameObject player;
 
     // Improvements to consider:
@@ -40,25 +39,6 @@ public class CameraFollow : MonoBehaviour
 
         Vector3 pos = transform.position;
 
-        if (pos.x < topLeft.x)
-        {
-            pos.x = topLeft.x;
-        }
-
-        if (pos.z > topLeft.z)
-        {
-            pos.z = topLeft.z;
-        }
-
-        if (pos.x > botRight.x)
-        {
-            pos.x = botRight.x;
-        }
-
-        if (pos.z < botRight.z)
-        {
-            pos.z = botRight.z;
-        }
 
         pos.y = player.transform.position.y + yDistance;
 
