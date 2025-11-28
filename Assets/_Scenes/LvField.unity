@@ -282,7 +282,7 @@ MonoBehaviour:
   - {fileID: 71911104}
   - {fileID: 71911103}
   spawnInterval: 1.5
-  totalEnemies: 500
+  totalEnemies: 5000
 --- !u!4 &205730608 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5697108152123444629, guid: 9f3f7d21dee3a874d8ec611748c4ce45, type: 3}
@@ -345,11 +345,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16de1c25b1400ad4d8b2ee3205f311fd, type: 3}
---- !u!4 &330918516 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1300040365291625661, guid: 16de1c25b1400ad4d8b2ee3205f311fd, type: 3}
-  m_PrefabInstance: {fileID: 330918515}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &334615549
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,14 +537,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1919308944568396023, guid: fa3efa430f44cc940905a3b36439699a, type: 3}
-      propertyPath: waypoint.Array.data[2]
-      value: 
-      objectReference: {fileID: 330918516}
-    - target: {fileID: 2838565159109010423, guid: fa3efa430f44cc940905a3b36439699a, type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -728,7 +715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &1075213175
 CapsuleCollider:
   m_ObjectHideFlags: 0

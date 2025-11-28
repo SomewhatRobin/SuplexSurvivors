@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3264818611697763459}
   - component: {fileID: 3514520396460805743}
   - component: {fileID: 5943490384542238492}
+  - component: {fileID: 8391717599368219361}
   m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
@@ -99,6 +100,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spinSpeed: 0.4
   spinSpeed2: 4
+--- !u!114 &8391717599368219361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705112835747332241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0f12bc9f41a744e936bd4a390c2fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7298833321073414706
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +124,6 @@ GameObject:
   - component: {fileID: 2407298131228732152}
   - component: {fileID: 6198940159758639275}
   - component: {fileID: 4349523809607610309}
-  - component: {fileID: 5993281355365614612}
   - component: {fileID: 2117321212861172181}
   m_Layer: 10
   m_Name: TestEnemyKO
@@ -208,18 +220,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &5993281355365614612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7298833321073414706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de0f12bc9f41a744e936bd4a390c2fe5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2117321212861172181
 MonoBehaviour:
   m_ObjectHideFlags: 0

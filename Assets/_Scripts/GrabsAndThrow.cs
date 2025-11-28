@@ -41,7 +41,7 @@ public class GrabsAndThrow : MonoBehaviour
   
 
 
-    public Color handShade; //Purple
+    public Color handShade; 
 
     public KeyCode kbGrab; //These 3 are changable in Editor
     public KeyCode crGrab;
@@ -52,7 +52,7 @@ public class GrabsAndThrow : MonoBehaviour
     void Start()
     {
         secondsHeld = 0f;
-        handShade = new Color(0.7f, 0.2f, 0.7f, 1f);
+        handShade = new Color(0.7f, 0.2f, 0.7f, 1f); 
         counterHit = false;
         endLag = false;
         btnPress = false;
