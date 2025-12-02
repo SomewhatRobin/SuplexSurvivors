@@ -18,6 +18,7 @@ public class PlayerControls : MonoBehaviour
     public SpriteRenderer theWiz;
     public GameObject hidArms;
     public GameObject armTango;
+    public bool flipSprite;
 
     public GrabsAndThrow grabThrows;
 
@@ -28,6 +29,7 @@ public class PlayerControls : MonoBehaviour
         myWay = new Vector3(0, 0, 0);
         armWay = new Vector3(0, 0, 0);
         theWiz = GetComponentInChildren<SpriteRenderer>();
+        flipSprite = false;
     }
 
     // Update is called once per frame
@@ -35,7 +37,18 @@ public class PlayerControls : MonoBehaviour
     {
         rollForce = speed;
         Stroll();
-        SpinArms();
+        //Sprite flipping, moved this up here so it works. Only works if the player isn't holding the grab button and can use the grab button. Shorten to flippable state?
+        if (myWay.x > deadZone && (!grabThrows.btnPress && !grabThrows.counterHit))
+        {
+            flipSprite = true;
+            theWiz.flipX = true;
+        }
+        else if (myWay.x < deadZone && (!grabThrows.btnPress && !grabThrows.counterHit))
+        {
+            flipSprite = false;
+            theWiz.flipX = false;
+        }
+            SpinArms();
     }
 
     private void SpinArms()
@@ -89,48 +102,58 @@ public class PlayerControls : MonoBehaviour
         float zDir = Input.GetAxis("Vertical");
         vecMag = Mathf.Sqrt((xDir * xDir) + (zDir * zDir)); //Calculates the Magnitude of the vector
 
-        if ((xDir * xDir) + (zDir * zDir) > 1.05f) //If the value of the input has it outside a circle w/ radius 1.05 [IF THEY ARE ON KB]
-        {
-
-            //Sets xDir and zDir to be (Direction / Magnitude), so total move speed is 1.
-            //TODO: Shorten this, it doesn't need the if else anymore
-            if (xDir > 0)
-            {
-                xDir = xDir/vecMag;
-                if (!theWiz.flipX && !(grabThrows.endLag || grabThrows.btnPress) )
-                {
-                    theWiz.flipX = true;
-                }
-               
-            }
-            else
-            {
-                xDir = xDir / vecMag;
-                if (theWiz.flipX && !(grabThrows.endLag || grabThrows.btnPress))
-                {
-                    theWiz.flipX = false;
-                }
-
-            }
-
-            if (zDir > 0)
-            {
-                zDir = zDir / vecMag;
-            }
-            else
-            {
-                zDir = zDir / vecMag;
-            }
-        }
-
-
-        myWay.x = xDir;
-        myWay.z = zDir;
-
+        //None of this applies if the input falls in the deadZone.
         if (vecMag > deadZone)
         {
-            transform.position += myWay * speed * Time.deltaTime;
+            if ((xDir * xDir) + (zDir * zDir) > 1.05f) //If the value of the input has it outside a circle w/ radius 1.05 [IF THEY ARE ON KB]
+            {
+
+                //Sets xDir and zDir to be (Direction / Magnitude), so total move speed is 1.
+                //TODO: Shorten this, it doesn't need the if else anymore
+                if (xDir > 0)
+                {
+                    /*
+                    if (!theWiz.flipX)//&& !(grabThrows.endLag || grabThrows.btnPress))
+                    {
+                        flipSprite = true;
+                    }
+                    */
+                    xDir = xDir / vecMag;
+                   
+
+                }
+                else
+                {
+                    /*
+                    if (theWiz.flipX)//&& !(grabThrows.endLag || grabThrows.btnPress))
+                    {
+                        flipSprite = false;
+                    }
+                    */
+                    xDir = xDir / vecMag;
+                   
+
+                }
+
+                if (zDir > 0)
+                {
+                    zDir = zDir / vecMag;
+                }
+                else
+                {
+                    zDir = zDir / vecMag;
+                }
+            }
+
+
+            myWay.x = xDir;
+            myWay.z = zDir;
+
+           transform.position += myWay * speed * Time.deltaTime;
+            
         }
+
+         
 
 
     }

@@ -104,7 +104,7 @@ public class GrabsAndThrow : MonoBehaviour
 
         }
 
-        else if (!counterHit && !inHand) //If player is not in endlag
+        else if (!counterHit && !inHand) //If player is not in endlag, has empty hands
         {
 
             //Controls are Space, A, or B on controller for grab
@@ -185,7 +185,7 @@ public class GrabsAndThrow : MonoBehaviour
             mageGrip();
         }
 
-        if (inHand)
+        if (inHand) //If the player has an enemy in Hand, regardless of endLag/counterHit
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
             {

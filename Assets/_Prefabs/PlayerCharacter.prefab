@@ -1530,6 +1530,7 @@ MonoBehaviour:
   deadZone: 0.02
   targDist: 6
   armWay: {x: 0, y: 0, z: 0}
+  theWiz: {fileID: 2838565159109010423}
   hidArms: {fileID: 6493896328442254086}
   armTango: {fileID: 8780610791465375851}
   grabThrows: {fileID: 1919308944568396023}
