@@ -33,7 +33,10 @@ public class ThrowEmAll : MonoBehaviour
             }
         }
 
-        
+        else if (gThoreau.dash &&  !gThoreau.doneGrab) //If the dash grab is active...
+        {
+            //Something to make dash grab hitbox active goes here
+        }
     }
 
 

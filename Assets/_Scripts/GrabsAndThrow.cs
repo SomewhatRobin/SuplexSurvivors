@@ -121,8 +121,7 @@ public class GrabsAndThrow : MonoBehaviour
             {
                 secondsHeld += Time.deltaTime;
                 //Hands can shake here as part of an animation
-                // heldShade = (int)secondsHeld * 80;
-                //handShade = (secondsHeld*80f , 0f, (2f * secondsHeld*80f) / 3f, 1f);
+                
                 if (secondsHeld < targetTimeHeld * 1.25f)
                 {
                     myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));

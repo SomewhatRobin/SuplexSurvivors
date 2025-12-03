@@ -6,11 +6,15 @@ public class PlayerControls : MonoBehaviour
 {
     public float rollForce;
     public float speed;
+    public float dashMult;
     public Vector3 myWay;
     public float vecMag = 0f;
     public float deadZone = 0.02f;
     public float targDist = 6f;
     public Vector3 armWay;
+    public bool hiSpeed;
+    public Vector3 dashDir;
+    public float dashDecay = 0.02f;
 
     // [SerializeField]
     //{ get; private set; }
@@ -28,14 +32,21 @@ public class PlayerControls : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         myWay = new Vector3(0, 0, 0);
         armWay = new Vector3(0, 0, 0);
-        theWiz = GetComponentInChildren<SpriteRenderer>();
+        //theWiz = GetComponentInChildren<SpriteRenderer>();
         flipSprite = false;
+        dashMult = 3f;
+        hiSpeed = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        rollForce = speed;
+        if (!hiSpeed && rollForce - speed > 0.3f) //If the player is not dashing and the player's movespeed is way off the intended speed:
+        {
+            rollForce = speed;
+        }
+        
+        //Function for walking
         Stroll();
         //Sprite flipping, moved this up here so it works. Only works if the player isn't holding the grab button and can use the grab button. Shorten to flippable state?
         if (myWay.x > deadZone && (!grabThrows.btnPress && !grabThrows.counterHit))
@@ -48,7 +59,10 @@ public class PlayerControls : MonoBehaviour
             flipSprite = false;
             theWiz.flipX = false;
         }
-            SpinArms();
+        //Function for aiming
+        SpinArms();
+        //Dash Grab
+        //turboLift();
     }
 
     private void SpinArms()
@@ -158,4 +172,22 @@ public class PlayerControls : MonoBehaviour
 
     }
 
+    private void turboLift()
+    {
+        if (!hiSpeed)
+        {
+            dashDir = armTango.transform.position - transform.position;
+            rollForce = speed * dashMult;
+            rb.velocity = rollForce * dashDir;
+        }
+
+        else if (hiSpeed)
+        {
+            rb.velocity -= (rollForce * dashDecay) * dashDir;
+
+        }
+
+
+    }
+    //eof
 }
