@@ -18,6 +18,7 @@ public class GrabsAndThrow : MonoBehaviour
     //What the player has grabbed, whether the player has grabbed
     public int theHaul; //For communicating with Throw script, checks for whether an Enemy has been grabbed
     public bool inHand; //Split second variable so the arms can return, can tell that an enemy is in hand(s)
+    public bool lifted; //As above, for dash grab
     public GameObject[] heldEnemy; //The enemy the player has grabbed, being held.
     public Sprite[] theHeld; //Graphic for held enemy
 
@@ -32,7 +33,7 @@ public class GrabsAndThrow : MonoBehaviour
     public float launchMult;
    
     public bool grabby, dash; //Is the grab in progress? Is the dash in use?
-    public bool goFar, goNear, doneGrab; //For the grab going where it shou
+    public bool goFar, goNear, doneGrab; //For the grab going where it should
 
     public float secondsHeld = 0f; //Public so it's visible in editor
     public float targetTimeHeld = 0.75f; //Public to be editable in editor
@@ -63,6 +64,7 @@ public class GrabsAndThrow : MonoBehaviour
         armStretch = true;
         theHaul = 0;
         inHand = false;
+        lifted = false;
         myHands[2].SetActive(false);
         goFar = true;
         goNear = false;
@@ -169,11 +171,18 @@ public class GrabsAndThrow : MonoBehaviour
 
                     myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.blue, 1f);
                     myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.blue, 1f);
-                    //Player dash grab goes here
-                    Debug.Log("Dash Grab!");
-                    dash = true;
-                    counterHit = true;
-                    endLag = true;
+                    if (GameManager.staMana > 0 && (!counterHit || !endLag))
+                    {
+                        GameManager.staMana++;
+                        //Player dash grab goes here
+                        Debug.LogWarning("Dash Grab!");
+                        dash = true;
+                        counterHit = true;
+                        endLag = true;
+                    }
+                    
+                    
+                   
                 }
 
             }
@@ -205,7 +214,8 @@ public class GrabsAndThrow : MonoBehaviour
         }
 
     }
-    private void mageGrip()
+
+    private void mageGrip() //Launch grab
     {
         if(theHaul != 0)
         {
@@ -271,6 +281,27 @@ public class GrabsAndThrow : MonoBehaviour
        
     }
 
+    private void bigbyBolt() //Grab part of dash grab
+    {
+
+        if (Vector3.Distance(waypoint[2].position, transform.position) < tolerance && !doneGrab)
+        {
+            doneGrab = true;
+        }
+
+        if (theHaul != 0)
+        {
+            myHands[2].SetActive(true);
+            doneGrab = true;
+            transform.position = waypoint[1].position; //Teleports(?) arms to player
+            //Add something here to skip cooldowns, this should let you throw RIGHT away
+            lifted = true;
+            SpriteRenderer sr = myHands[2].GetComponent<SpriteRenderer>();
+            sr.sprite = theHeld[theHaul - 1];
+        }
+    
+    }
+
     private void SwitchTargets()
     {
         if (armStretch)
@@ -297,7 +328,7 @@ public class GrabsAndThrow : MonoBehaviour
 
         if (counterHit)
         {
-            Debug.Log("Hands are ready.");
+            Debug.LogWarning("Hands are ready.");
             myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, 1f);
             myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, 1f);
         }
@@ -314,13 +345,13 @@ public class GrabsAndThrow : MonoBehaviour
     {
         if (endLag)
         {
-            Debug.Log("Hands are recasting...");
+            Debug.LogWarning("Hands are recasting...");
             secondsHeld = 0f;   
         }
 
         if (counterHit)
         {
-            secondsHeld += Time.deltaTime;
+            //secondsHeld += Time.deltaTime;
             myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, secondsHeld / (coolDown*1.5f));
             myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, secondsHeld / (coolDown*1.5f));
             

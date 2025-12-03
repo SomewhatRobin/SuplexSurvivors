@@ -7,14 +7,16 @@ public class PlayerControls : MonoBehaviour
     public float rollForce;
     public float speed;
     public float dashMult;
+    public Transform dashGoal;
     public Vector3 myWay;
     public float vecMag = 0f;
     public float deadZone = 0.02f;
     public float targDist = 6f;
     public Vector3 armWay;
     public bool hiSpeed;
+    public bool doneDash;
     public Vector3 dashDir;
-    public float dashDecay = 0.02f;
+    //public float dashDecay = 0.02f;
 
     // [SerializeField]
     //{ get; private set; }
@@ -32,10 +34,12 @@ public class PlayerControls : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         myWay = new Vector3(0, 0, 0);
         armWay = new Vector3(0, 0, 0);
+        dashGoal.position = armTango.transform.position;
         //theWiz = GetComponentInChildren<SpriteRenderer>();
         flipSprite = false;
         dashMult = 3f;
         hiSpeed = false;
+        doneDash = true;
     }
 
     // Update is called once per frame
@@ -46,8 +50,17 @@ public class PlayerControls : MonoBehaviour
             rollForce = speed;
         }
         
+        if (!grabThrows.doneGrab && grabThrows.dash)
+        {
+            doneDash = false;
+        }
+
         //Function for walking
-        Stroll();
+        if (doneDash)
+        {
+            Stroll();
+        }
+
         //Sprite flipping, moved this up here so it works. Only works if the player isn't holding the grab button and can use the grab button. Shorten to flippable state?
         if (myWay.x > deadZone && (!grabThrows.btnPress && !grabThrows.counterHit))
         {
@@ -62,7 +75,11 @@ public class PlayerControls : MonoBehaviour
         //Function for aiming
         SpinArms();
         //Dash Grab
-        //turboLift();
+        if (!doneDash)
+        {
+            turboLift();
+        }
+  
     }
 
     private void SpinArms()
@@ -112,6 +129,11 @@ public class PlayerControls : MonoBehaviour
 
     private void Stroll()
     {
+        if (hiSpeed)
+        {
+            hiSpeed = false;
+        }
+
         float xDir = Input.GetAxis("Horizontal");
         float zDir = Input.GetAxis("Vertical");
         vecMag = Mathf.Sqrt((xDir * xDir) + (zDir * zDir)); //Calculates the Magnitude of the vector
@@ -172,19 +194,30 @@ public class PlayerControls : MonoBehaviour
 
     }
 
-    private void turboLift()
+    private void turboLift() //Dash part of dash grab
     {
         if (!hiSpeed)
         {
+            //Set the direction of the dash towards the target, Raise movement speed, and go REAL fast.
+            //TODO: Start iFrames   
             dashDir = armTango.transform.position - transform.position;
+            dashGoal.position = transform.position + (dashDir * 2);
             rollForce = speed * dashMult;
-            rb.velocity = rollForce * dashDir;
+            rb.AddForce( rollForce * dashDir, ForceMode.Impulse);
+            hiSpeed = true;
         }
 
         else if (hiSpeed)
         {
-            rb.velocity -= (rollForce * dashDecay) * dashDir;
+            //rb.velocity -= (rollForce * dashDecay) * dashDir;
+            if ((transform.position - dashGoal.position).magnitude < 1f) //If the dash is over...
+            {
+             //End iFrames, turbo speed, and dash.   
+                rb.velocity = Vector3.zero;
 
+                doneDash = true;
+            }
+               
         }
 
 

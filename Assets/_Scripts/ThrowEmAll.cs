@@ -36,6 +36,15 @@ public class ThrowEmAll : MonoBehaviour
         else if (gThoreau.dash &&  !gThoreau.doneGrab) //If the dash grab is active...
         {
             //Something to make dash grab hitbox active goes here
+            if (collision.transform.CompareTag("Enemy"))
+            {
+                GameManager.Score += 5;
+                gThoreau.theHaul = 1;
+                holdEm = true;
+                Destroy(collision.transform.parent.gameObject);
+
+            }
+            
         }
     }
 
