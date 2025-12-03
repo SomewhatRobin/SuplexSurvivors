@@ -179,6 +179,7 @@ public class GrabsAndThrow : MonoBehaviour
                         dash = true;
                         counterHit = true;
                         endLag = true;
+
                     }
                     
                     
@@ -287,6 +288,7 @@ public class GrabsAndThrow : MonoBehaviour
         if (Vector3.Distance(waypoint[2].position, transform.position) < tolerance && !doneGrab)
         {
             doneGrab = true;
+            Invoke("grabReset", 0.02f);
         }
 
         if (theHaul != 0)
@@ -300,6 +302,11 @@ public class GrabsAndThrow : MonoBehaviour
             sr.sprite = theHeld[theHaul - 1];
         }
     
+    }
+
+    public void grabReset()
+    {
+        doneGrab = false;
     }
 
     private void SwitchTargets()
