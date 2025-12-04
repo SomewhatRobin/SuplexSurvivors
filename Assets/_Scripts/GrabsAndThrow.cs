@@ -135,7 +135,7 @@ public class GrabsAndThrow : MonoBehaviour
                     myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
                 }
 
-                if (secondsHeld > targetTimeHeld * 0.75f && !goFar)
+                if (secondsHeld > targetTimeHeld * 0.05f && !goFar)
                 {
                     goFar = true;
                     doneGrab = false;
@@ -159,8 +159,8 @@ public class GrabsAndThrow : MonoBehaviour
 
                     launchMult = 1f;
                     goFar = true;
-                    //mageGrip();
-                    grabby = true;
+                   
+                    grabby = true;  //Effectively calls mageGrip();
                     counterHit = true;
                     endLag = true;
                 }
@@ -173,7 +173,7 @@ public class GrabsAndThrow : MonoBehaviour
                     myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.blue, 1f);
                     if (GameManager.staMana > 0 && (!counterHit || !endLag))
                     {
-                        GameManager.staMana++;
+                        GameManager.staMana++; //DEBUGGING: Increments instead of decrementing
                         //Player dash grab goes here
                         Debug.LogWarning("Dash Grab!");
                         dash = true;
@@ -192,6 +192,11 @@ public class GrabsAndThrow : MonoBehaviour
         if (grabby)
         {
             mageGrip();
+        }
+
+        if (lifted)
+        {
+            flyingWizard();
         }
 
         if (inHand) //If the player has an enemy in Hand, regardless of endLag/counterHit
@@ -218,7 +223,7 @@ public class GrabsAndThrow : MonoBehaviour
 
     private void mageGrip() //Launch grab
     {
-        if(theHaul != 0)
+        if(theHaul != 0 && !lifted)
         {
             myHands[2].SetActive(true);
             //Resets variables to mirror state after whiff
@@ -291,17 +296,22 @@ public class GrabsAndThrow : MonoBehaviour
             Invoke("grabReset", 0.02f);
         }
 
-        if (theHaul != 0)
+        if (theHaul != 0 && lifted) //lifted is set in TemAll, so can use that here
         {
             myHands[2].SetActive(true);
-            doneGrab = true;
+            doneGrab = true; //doneGrab is only used for making sure mageGrip stops after reaching the player and for setting up doneDash in PlayerControls. no need to worry about this.
             transform.position = waypoint[1].position; //Teleports(?) arms to player
             //Add something here to skip cooldowns, this should let you throw RIGHT away
-            lifted = true;
+            
             SpriteRenderer sr = myHands[2].GetComponent<SpriteRenderer>();
             sr.sprite = theHeld[theHaul - 1];
         }
     
+    }
+
+    private void flyingWizard() //The "acrobatic" throws
+    {
+
     }
 
     public void grabReset()

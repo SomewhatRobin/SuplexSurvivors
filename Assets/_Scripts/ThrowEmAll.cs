@@ -40,6 +40,7 @@ public class ThrowEmAll : MonoBehaviour
             {
                 GameManager.Score += 5;
                 gThoreau.theHaul = 1;
+                gThoreau.lifted = true; //lifted set to true here, so it doesn't interact with mageGrip
                 holdEm = true;
                 Destroy(collision.transform.parent.gameObject);
 
