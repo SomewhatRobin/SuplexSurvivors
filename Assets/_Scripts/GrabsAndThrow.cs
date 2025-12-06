@@ -34,6 +34,7 @@ public class GrabsAndThrow : MonoBehaviour
    
     public bool grabby, dash; //Is the grab in progress? Is the dash in use?
     public bool goFar, goNear, doneGrab; //For the grab going where it should
+    public bool tech48, dunkin; //For PlayerControls, is the player doing an acro throw 
 
     public float secondsHeld = 0f; //Public so it's visible in editor
     public float targetTimeHeld = 0.75f; //Public to be editable in editor
@@ -68,6 +69,8 @@ public class GrabsAndThrow : MonoBehaviour
         myHands[2].SetActive(false);
         goFar = true;
         goNear = false;
+        tech48 = false;
+        dunkin = false;
         //wizRobe = armCast.GetComponentInParent<Transform>();
 
     }
@@ -78,7 +81,7 @@ public class GrabsAndThrow : MonoBehaviour
         if (counterHit) //If player is in endlag
         {
 
-            if (secondsHeld > 4.0f * targetTimeHeld && !grabby)
+            if (secondsHeld > 4.0f * targetTimeHeld && !grabby && !lifted)
             {
                 //This is to fix some weird bug where the arms can get stuck. For now this goes nuclear and sets everything to a default-ish state
                 Debug.LogWarning("You wave your hands and wiggle your fingers...");
@@ -106,7 +109,7 @@ public class GrabsAndThrow : MonoBehaviour
 
         }
 
-        else if (!counterHit && !inHand) //If player is not in endlag, has empty hands
+        else if (!counterHit && !inHand && !lifted) //If player is not in endlag, has empty hands
         {
 
             //Controls are Space, A, or B on controller for grab
@@ -118,12 +121,11 @@ public class GrabsAndThrow : MonoBehaviour
                 myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
             }
 
-
             if (Input.GetKey(KeyCode.Space) || Input.GetKey(crGrab) || Input.GetKey(crGrab2))
             {
                 secondsHeld += Time.deltaTime;
                 //Hands can shake here as part of an animation
-                
+
                 if (secondsHeld < targetTimeHeld * 1.25f)
                 {
                     myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
@@ -159,7 +161,7 @@ public class GrabsAndThrow : MonoBehaviour
 
                     launchMult = 1f;
                     goFar = true;
-                   
+
                     grabby = true;  //Effectively calls mageGrip();
                     counterHit = true;
                     endLag = true;
@@ -181,9 +183,9 @@ public class GrabsAndThrow : MonoBehaviour
                         endLag = true;
 
                     }
-                    
-                    
-                   
+
+
+
                 }
 
             }
@@ -204,7 +206,7 @@ public class GrabsAndThrow : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
             {
                 btnPress = true;
-               
+
             }
 
 
@@ -219,8 +221,93 @@ public class GrabsAndThrow : MonoBehaviour
 
         }
 
-    }
+        else if (lifted)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
+            {
+                btnPress = true;
+                secondsHeld = 0f;
+                // myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
+                // myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
+            }
 
+            if (Input.GetKey(KeyCode.Space) || Input.GetKey(crGrab) || Input.GetKey(crGrab2))
+            {
+                secondsHeld += Time.deltaTime;
+                //Hands can shake here as part of an animation
+
+                if (secondsHeld < targetTimeHeld * 1.25f)
+                {
+                    //  myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
+                    // myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
+                }
+                else
+                {
+                    //  myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
+                    //  myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
+                }
+
+            }
+
+
+            if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2))
+            {
+
+                btnPress = false; //Not pressing a button when you stop pressing a button
+
+                float timePct = secondsHeld / targetTimeHeld;
+                if (timePct >= 1.0f) //Charge Input for PB
+                {
+                    timePct = 1.0f;
+                    //YONJYU HACHI HISATSSU WAZA
+                    Debug.LogWarning("Bigby's Big Book, Page 360!");
+                    tech48 = true;
+                    myHands[2].SetActive(false);
+                    Instantiate(heldEnemy[theHaul - 1], transform.position, Quaternion.Euler(-45f, 0f, 0f));
+                    btnPress = false;
+                    theHaul = 0;
+                    lifted = false;
+                    dash = false;
+                    Invoke("grabReset", 0.25f);
+                }
+
+                else //Tap input for RD.
+                {
+                    timePct = 0f;
+
+                    // myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.blue, 1f);
+                    // myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.blue, 1f);
+
+                    if (GameManager.staMana > 0) //Not having stamina here means you have retry the input.
+                    {
+                        GameManager.staMana++; //DEBUGGING: Increments instead of decrementing
+                        //Rock Drop
+                        Debug.LogWarning("Rubble Dump!");
+                        dunkin = true;
+                        myHands[2].SetActive(false);
+                        Instantiate(heldEnemy[theHaul - 1], transform.position, Quaternion.Euler(-45f, 0f, 0f));
+                        btnPress = false;
+                        theHaul = 0;
+                        lifted = false;
+                        dash = false;
+                        Invoke("grabReset", 0.25f);
+
+                    }
+
+                    else
+                    {
+                        // Maybe have some "RD fail" animation?
+                        Debug.LogWarning("Gotta hold for a slam...");
+
+                    }
+
+                }
+
+                secondsHeld = 0f; //Seconds held now resets to 0 after letting go of a button. This to avoid issues with ready/reCast and lifted throws
+            }
+
+        }
+    }
     private void mageGrip() //Launch grab
     {
         if(theHaul != 0 && !lifted)
@@ -311,7 +398,16 @@ public class GrabsAndThrow : MonoBehaviour
 
     private void flyingWizard() //The "acrobatic" throws
     {
+        if (theHaul !=0  && lifted)
+        {
+            myHands[2].SetActive(true);
+            //Resets variables to mirror state after whiff
+            doneGrab = true;
+            transform.position = waypoint[1].position; //Teleports(?) arms to player
+            SpriteRenderer sr = myHands[2].GetComponent<SpriteRenderer>();
+            sr.sprite = theHeld[theHaul - 1];
 
+        }
     }
 
     public void grabReset()
@@ -353,26 +449,24 @@ public class GrabsAndThrow : MonoBehaviour
         dash = false;
         grabby = false;
         counterHit = false;
-        secondsHeld = 0f;
+
+        if (!lifted)
+        {
+            secondsHeld = 0f;
+        }
+     
         
        
     }
 
     private void reCastHands()
     {
-        if (endLag)
+        if (endLag && !lifted)
         {
             Debug.LogWarning("Hands are recasting...");
             secondsHeld = 0f;   
         }
 
-        if (counterHit)
-        {
-            //secondsHeld += Time.deltaTime;
-            myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, secondsHeld / (coolDown*1.5f));
-            myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, secondsHeld / (coolDown*1.5f));
-            
-        }
         endLag = false; //Go ahead for running readyHands, doesn't reset timer float.
 
     }

@@ -16,6 +16,7 @@ public class PlayerControls : MonoBehaviour
     public bool hiSpeed;
     public bool doneDash;
     public Vector3 dashDir;
+    private Animator pAnim;
     //public float dashDecay = 0.02f;
 
     // [SerializeField]
@@ -25,6 +26,7 @@ public class PlayerControls : MonoBehaviour
     public GameObject hidArms;
     public GameObject armTango;
     public bool flipSprite;
+    public bool poBu, roDr; //For Animations
 
     public GrabsAndThrow grabThrows;
 
@@ -32,6 +34,7 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        pAnim = GetComponent<Animator>();
         myWay = new Vector3(0, 0, 0);
         armWay = new Vector3(0, 0, 0);
         dashGoal.position = armTango.transform.position;
@@ -40,14 +43,23 @@ public class PlayerControls : MonoBehaviour
         dashMult = 3f;
         hiSpeed = false;
         doneDash = true;
+        poBu = false; 
+        roDr = false;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!hiSpeed && rollForce - speed > 0.3f) //If the player is not dashing and the player's movespeed is way off the intended speed:
+        
+        if (!(poBu || roDr)) //If the player isn't in a grab [being in one is the most likely case for...]
         {
-            rollForce = speed;
+            if ((!hiSpeed && Mathf.Abs(rollForce - speed) > 0.3f)) //If the player is not dashing and the player's movespeed is way off the intended speed:
+            {
+                rollForce = 5.0f; //Dupe rollForce reset, just to prevent bugs
+                speed = rollForce;
+            }
+           
         }
         
         if (!grabThrows.doneGrab && grabThrows.dash)
@@ -55,11 +67,45 @@ public class PlayerControls : MonoBehaviour
             doneDash = false;
         }
 
+        if (roDr || poBu)
+        {
+            AnimatorStateInfo wizNow = pAnim.GetCurrentAnimatorStateInfo(0); //Animator State, checks what the WIZard is NOW doing
+
+            if (wizNow.fullPathHash == Animator.StringToHash("Base Layer.DoneSlam") )
+            {
+                roDr = false;
+                grabThrows.dunkin = false;
+                poBu = false;
+                grabThrows.tech48 = false;
+                //Also resetting grab lock variables here, Rubble Dump did not play nice with ready/reCast.
+                grabThrows.counterHit = false;
+                grabThrows.endLag = false;
+            }
+        }
+
         //Function for walking
         if (doneDash)
         {
             Stroll();
         }
+
+        if (!roDr && grabThrows.dunkin)
+        {
+            pAnim.Play("RD");
+            roDr = true;
+            speed = rollForce * 3.00f;
+            
+        }
+
+        else if (!poBu && grabThrows.tech48)
+        {
+            pAnim.Play("PB");
+            poBu = true;
+            speed = rollForce * 0.05f;
+            //Also do the SM64 thing
+        }
+
+        
 
         //Sprite flipping, moved this up here so it works. Only works if the player isn't holding the grab button and can use the grab button. Shorten to flippable state?
         if (myWay.x > deadZone && (!grabThrows.btnPress && !grabThrows.counterHit))
@@ -116,11 +162,7 @@ public class PlayerControls : MonoBehaviour
                 hidArms.transform.localRotation = Quaternion.LookRotation(armWay, Vector3.forward);
             }
 
-           // Don't update armTango here, the target does not move when the button is held.
-
-            
-
-
+        
         }
         
     }
@@ -214,7 +256,7 @@ public class PlayerControls : MonoBehaviour
             {
              //End iFrames, turbo speed, and dash.   
                 rb.velocity = Vector3.zero;
-
+                rollForce = 5.0f;
                 doneDash = true;
             }
                
