@@ -16,7 +16,7 @@ public class FriendlyHitbox : MonoBehaviour
         {
             GameManager.Score += 10 * cuántosHit; //PlaceHolder value, can use EXP instead/also spawn exp drops for stuff like this
 
-            Instantiate(whatHit[0], transform.position, Quaternion.Euler(-45f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
+            Instantiate(whatHit[0], transform.position, Quaternion.Euler(61.6f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
             Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit
                                                             //This is set to destroy the parent because the hitbox is a separate object
 

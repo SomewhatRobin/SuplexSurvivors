@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 387245007889801183}
   - component: {fileID: 2732174465469416525}
   - component: {fileID: 2683159486715568713}
+  - component: {fileID: 3099458599641524481}
   m_Layer: 8
   m_Name: OuterCirc
   m_TagString: Untagged
@@ -317,6 +318,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &3099458599641524481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302403964244770844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db2027264629384aac06715b34966e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatHit:
+  - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
 --- !u!1 &601233291918615271
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +377,7 @@ GameObject:
   - component: {fileID: 3018760286577192960}
   - component: {fileID: 1479901128385812642}
   - component: {fileID: 5411723048615401827}
+  - component: {fileID: 6661453794650180085}
   m_Layer: 8
   m_Name: 360PBox
   m_TagString: Untagged
@@ -457,6 +473,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &6661453794650180085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304587759683211344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db2027264629384aac06715b34966e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatHit:
+  - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
 --- !u!1 &2444726089264075248
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,6 +499,7 @@ GameObject:
   - component: {fileID: 273374169379406147}
   - component: {fileID: 5019958553759737924}
   - component: {fileID: 7699897513962482047}
+  - component: {fileID: 2320453849480688614}
   m_Layer: 8
   m_Name: OuterRtCirc
   m_TagString: Untagged
@@ -564,6 +595,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &2320453849480688614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2444726089264075248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db2027264629384aac06715b34966e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatHit:
+  - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
 --- !u!1 &2547185116207654434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1898,6 +1943,7 @@ GameObject:
   - component: {fileID: 3491971624643268015}
   - component: {fileID: 4307157646726821298}
   - component: {fileID: 3163131003727717445}
+  - component: {fileID: 7151460950380013739}
   m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
@@ -1993,6 +2039,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &7151460950380013739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364907617000675521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db2027264629384aac06715b34966e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatHit:
+  - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
 --- !u!1 &7509712156135595060
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,6 +2065,7 @@ GameObject:
   - component: {fileID: 6641469953217175217}
   - component: {fileID: 2818285648993411330}
   - component: {fileID: 2492301049974782316}
+  - component: {fileID: 7461654722159041446}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
@@ -2098,6 +2159,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7461654722159041446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7509712156135595060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db2027264629384aac06715b34966e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatHit:
+  - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
 --- !u!1 &8023868425820300100
 GameObject:
   m_ObjectHideFlags: 0
@@ -2263,6 +2338,8 @@ MonoBehaviour:
   theWiz: {fileID: 2838565159109010423}
   hidArms: {fileID: 6493896328442254086}
   armTango: {fileID: 8780610791465375851}
+  whatHit:
+  - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
   flipSprite: 0
   poBu: 0
   roDr: 0

@@ -262,8 +262,6 @@ public class GrabsAndThrow : MonoBehaviour
                     //YONJYU HACHI HISATSSU WAZA
                     Debug.LogWarning("Bigby's Big Book, Page 360!");
                     tech48 = true;
-                    myHands[2].SetActive(false);
-                    Instantiate(heldEnemy[theHaul - 1], transform.position, Quaternion.Euler(-45f, 0f, 0f));
                     btnPress = false;
                     theHaul = 0;
                     lifted = false;
@@ -283,9 +281,7 @@ public class GrabsAndThrow : MonoBehaviour
                         GameManager.staMana++; //DEBUGGING: Increments instead of decrementing
                         //Rock Drop
                         Debug.LogWarning("Rubble Dump!");
-                        dunkin = true;
-                        myHands[2].SetActive(false);
-                        Instantiate(heldEnemy[theHaul - 1], transform.position, Quaternion.Euler(-45f, 0f, 0f));
+                        dunkin = true;                       
                         btnPress = false;
                         theHaul = 0;
                         lifted = false;

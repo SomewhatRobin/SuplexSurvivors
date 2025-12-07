@@ -232,3 +232,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333f199bc30f30d4183128ed00f76c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movingPart: {fileID: 3264818611697763459}

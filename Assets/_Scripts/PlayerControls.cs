@@ -25,6 +25,7 @@ public class PlayerControls : MonoBehaviour
     public SpriteRenderer theWiz;
     public GameObject hidArms;
     public GameObject armTango;
+    public GameObject[] whatHit;
     public bool flipSprite;
     public bool poBu, roDr; //For Animations
 
@@ -263,6 +264,24 @@ public class PlayerControls : MonoBehaviour
         }
 
 
+    }
+
+    public void emptyHands(int slamMult) //Hides the held enemy, gives score according to a multiplier, and spawns the enemy's spinning body
+    {
+        grabThrows.myHands[2].SetActive(false);
+        GameManager.Score += 10 * slamMult;
+        Instantiate(whatHit[0], transform.position, Quaternion.Euler(48f, 0f, 0f));
+
+    }
+
+    public void stepAside(float midSpeed) //Gives the player a little speed after a PB, or slows them down a bit after RD.
+    {
+        speed = rollForce * midSpeed;
+    }
+
+    public void emergExit() //Here because doneDash sometimes won't reset??
+    {
+        doneDash = true;
     }
     //eof
 }
