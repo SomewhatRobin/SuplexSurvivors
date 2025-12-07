@@ -17,6 +17,7 @@ public class PlayerControls : MonoBehaviour
     public bool doneDash;
     public Vector3 dashDir;
     private Animator pAnim;
+    private float dashTime;
     //public float dashDecay = 0.02f;
 
     // [SerializeField]
@@ -34,6 +35,7 @@ public class PlayerControls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dashTime = 0.00f;
         rb = GetComponent<Rigidbody>();
         pAnim = GetComponent<Animator>();
         myWay = new Vector3(0, 0, 0);
@@ -52,7 +54,12 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Pause check, nothing happens if the game is paused
+        if (GameManager.isPaused)
+        {
+            return;
+        }
+
         if (!(poBu || roDr)) //If the player isn't in a grab [being in one is the most likely case for...]
         {
             if ((!hiSpeed && Mathf.Abs(rollForce - speed) > 0.3f)) //If the player is not dashing and the player's movespeed is way off the intended speed:
@@ -131,6 +138,8 @@ public class PlayerControls : MonoBehaviour
 
     private void SpinArms()
     {
+        //Pause check unecessary, SpinArms doesn't get called if the game is paused
+
         //In the unity scene, the arms are attached to a parent object which has rotations set so this spins properly.
 
         //Sets arm rotation to go on xy instead of xz, preventing arms from spinning on the wrong axis
@@ -248,14 +257,18 @@ public class PlayerControls : MonoBehaviour
             rollForce = speed * dashMult;
             rb.AddForce( rollForce * dashDir, ForceMode.Impulse);
             hiSpeed = true;
+            dashTime += Time.deltaTime;
         }
 
         else if (hiSpeed)
         {
+            //The dash functions off of velocity, so it should pause with the game
+            dashTime += Time.deltaTime;
             //rb.velocity -= (rollForce * dashDecay) * dashDir;
-            if ((transform.position - dashGoal.position).magnitude < 1f) //If the dash is over...
+            if ((transform.position - dashGoal.position).magnitude < 1f || dashTime > 0.25f) //If the dash is over...
             {
-             //End iFrames, turbo speed, and dash.   
+                dashTime = 0f;
+                //End iFrames, turbo speed, and dash.   
                 rb.velocity = Vector3.zero;
                 rollForce = 5.0f;
                 doneDash = true;

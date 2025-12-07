@@ -78,6 +78,12 @@ public class GrabsAndThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Pause check, nothing happens if the game is Paused.
+        if (GameManager.isPaused)
+        {
+            return;
+        }
+
         if (counterHit) //If player is in endlag
         {
 
@@ -111,7 +117,10 @@ public class GrabsAndThrow : MonoBehaviour
 
         else if (!counterHit && !inHand && !lifted) //If player is not in endlag, has empty hands
         {
-
+            if (tech48 || dunkin)
+            {
+                return;
+            }
             //Controls are Space, A, or B on controller for grab
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
             {
@@ -322,7 +331,8 @@ public class GrabsAndThrow : MonoBehaviour
 
         }
 
-        if(inHand)
+        //Pause Check, goes after lifted enemy to avoid bugs
+        if(inHand || GameManager.isPaused)
         {
             return;
         }
@@ -372,6 +382,10 @@ public class GrabsAndThrow : MonoBehaviour
 
     private void bigbyBolt() //Grab part of dash grab
     {
+        if (GameManager.isPaused)
+        {
+            return;
+        }
 
         if (Vector3.Distance(waypoint[2].position, transform.position) < tolerance && !doneGrab)
         {
@@ -434,6 +448,11 @@ public class GrabsAndThrow : MonoBehaviour
         {
             return;
         }
+        
+        if (GameManager.isPaused)
+        {
+            return;
+        }
 
         if (counterHit)
         {
@@ -457,6 +476,11 @@ public class GrabsAndThrow : MonoBehaviour
 
     private void reCastHands()
     {
+        if (GameManager.isPaused)
+        {
+            return;
+        }
+
         if (endLag && !lifted)
         {
             Debug.LogWarning("Hands are recasting...");

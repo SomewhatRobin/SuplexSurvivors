@@ -19,4 +19,7 @@ public class UIManager : MonoBehaviour
     {
         ScoreboardTMP.text = GameManager.Score.ToString();
     }
+
+    
+
 }
