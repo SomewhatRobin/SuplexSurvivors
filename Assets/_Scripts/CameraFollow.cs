@@ -29,9 +29,33 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Vector3.Distance(transform.position, player.transform.position + Vector3.right * xOffset 
+            + Vector3.up * yDistance + 
+            Vector3.forward * zOffset) < 3.0f * allowableOffset)  //End condition
+        {
+            speed = 5.0f;
+        }
+
+        else if (Vector3.Distance(transform.position, player.transform.position + Vector3.right * xOffset
+            + Vector3.up * yDistance + 
+            Vector3.forward * zOffset) > 4.0f * allowableOffset 
+            && Vector3.Distance(transform.position, player.transform.position + Vector3.right * xOffset
+            + Vector3.up * yDistance +
+            Vector3.forward * zOffset) < 7.0f * allowableOffset) //End condition
+        {
+            speed = 12.5f;
+        }
+
+        else if (Vector3.Distance(transform.position, player.transform.position + Vector3.right * xOffset 
+            + Vector3.up * yDistance 
+            + Vector3.forward * zOffset) > 7.0f * allowableOffset) //End condition
+        {
+            speed = 25.0f;
+        }
+
         if (Vector3.Distance(transform.position, player.transform.position + Vector3.up * yDistance) > allowableOffset)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position 
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position
                 + Vector3.right * xOffset
                 + Vector3.up * yDistance
                 + Vector3.forward * zOffset, speed * Time.deltaTime);
