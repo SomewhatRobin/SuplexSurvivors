@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static int staMana = 2;
     public static bool _gameOver = false;
     public static bool isPaused = false;
+    public static bool fromPause = false;
     public static float combineValue = 0.00f;
     public GameObject PauseMenu;
 
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     {
         PauseMenu.SetActive(false);
         StartGame();
+        fromPause = false;
     }
 
     // Update is called once per frame

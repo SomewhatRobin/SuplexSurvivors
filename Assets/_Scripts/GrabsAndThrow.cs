@@ -117,7 +117,7 @@ public class GrabsAndThrow : MonoBehaviour
 
         else if (!counterHit && !inHand && !lifted) //If player is not in endlag, has empty hands
         {
-            if (tech48 || dunkin)
+            if (tech48 || dunkin) 
             {
                 return;
             }
@@ -130,7 +130,7 @@ public class GrabsAndThrow : MonoBehaviour
                 myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
             }
 
-            if (Input.GetKey(KeyCode.Space) || Input.GetKey(crGrab) || Input.GetKey(crGrab2))
+            if (Input.GetKey(KeyCode.Space) || ( ( Input.GetKey(crGrab)  || Input.GetKey(crGrab2) )&& !GameManager.fromPause)) //Addl. check for if the player's input is from the Pause screen
             {
                 secondsHeld += Time.deltaTime;
                 //Hands can shake here as part of an animation
@@ -154,7 +154,7 @@ public class GrabsAndThrow : MonoBehaviour
 
             }
 
-            if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2))
+            if (Input.GetKeyUp(KeyCode.Space) || ( ( Input.GetKeyUp(crGrab)  || Input.GetKeyUp(crGrab2) )&& !GameManager.fromPause)) //Addl. check for if the player's input is from the Pause screen
             {
 
                 btnPress = false; //Not pressing a button when you stop pressing a button
@@ -198,6 +198,11 @@ public class GrabsAndThrow : MonoBehaviour
                 }
 
             }
+
+            else if ( (Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2)) && GameManager.fromPause )
+            {
+                GameManager.fromPause = false;
+            }
         }
 
         if (grabby)
@@ -219,13 +224,18 @@ public class GrabsAndThrow : MonoBehaviour
             }
 
 
-            if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2))
+            if (Input.GetKeyUp(KeyCode.Space) || ( ( Input.GetKeyUp(crGrab)  || Input.GetKeyUp(crGrab2) )&& !GameManager.fromPause)) //Addl. check for if the player's input is from the Pause screen
             {
                 myHands[2].SetActive(false);
                 Instantiate(heldEnemy[theHaul - 1], transform.position, Quaternion.Euler(-45f, 0f, 0f));
                 btnPress = false;
                 theHaul = 0;
                 inHand = false;
+            }
+
+            else if ((Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2)) && GameManager.fromPause) //And reset if the player is exiting pause
+            {
+                GameManager.fromPause = false;
             }
 
         }
@@ -240,7 +250,7 @@ public class GrabsAndThrow : MonoBehaviour
                 // myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, secondsHeld / (targetTimeHeld * 1.25f));
             }
 
-            if (Input.GetKey(KeyCode.Space) || Input.GetKey(crGrab) || Input.GetKey(crGrab2))
+            if (Input.GetKey(KeyCode.Space) || ( ( Input.GetKey(crGrab)  || Input.GetKey(crGrab2) )&& !GameManager.fromPause)) //Addl. check for if the player's input is from the Pause screen
             {
                 secondsHeld += Time.deltaTime;
                 //Hands can shake here as part of an animation
@@ -259,7 +269,7 @@ public class GrabsAndThrow : MonoBehaviour
             }
 
 
-            if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2))
+            if (Input.GetKeyUp(KeyCode.Space) || ( ( Input.GetKeyUp(crGrab)  || Input.GetKeyUp(crGrab2) )&& !GameManager.fromPause)) //Addl. check for if the player's input is from the Pause screen
             {
 
                 btnPress = false; //Not pressing a button when you stop pressing a button
@@ -309,6 +319,11 @@ public class GrabsAndThrow : MonoBehaviour
                 }
 
                 secondsHeld = 0f; //Seconds held now resets to 0 after letting go of a button. This to avoid issues with ready/reCast and lifted throws
+            }
+
+            else if ((Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2)) && GameManager.fromPause) //And reset if the player is exiting pause
+            {
+                GameManager.fromPause = false;
             }
 
         }
