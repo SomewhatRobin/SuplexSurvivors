@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static int staMana = 2;
     public static bool _gameOver = false;
     public static bool isPaused = false;
+    public static float combineValue = 0.00f;
     public GameObject PauseMenu;
 
     // Start is called before the first frame update

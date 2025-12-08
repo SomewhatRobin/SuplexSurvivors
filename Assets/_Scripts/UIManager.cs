@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI ScoreboardTMP;
+    public TextMeshProUGUI DebugCmbTMP;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,17 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         ScoreboardTMP.text = GameManager.Score.ToString();
+
+        if (GameManager.combineValue > 0.00001f)
+        {
+            DebugCmbTMP.text = GameManager.combineValue.ToString("#.000000");
+        }
+
+        else 
+        {
+            DebugCmbTMP.text = "Nothing";
+        }
+
     }
 
     

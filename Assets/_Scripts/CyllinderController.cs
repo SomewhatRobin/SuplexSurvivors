@@ -15,6 +15,7 @@ public class Chip : MonoBehaviour
     [Header("Runtime Debug")]
     public float hostValue;          // random value
     public bool active = true;
+    public bool combined = false;
 
     private float guestTimer;
     private HashSet<Chip> guestsInside = new HashSet<Chip>();
@@ -23,6 +24,7 @@ public class Chip : MonoBehaviour
     {
         if (isHostChip)
         {
+            combined = false;
             active = true;
             hostValue = Random.value;            // Only hosts have value
             guestsInside.Clear();
@@ -43,12 +45,28 @@ public class Chip : MonoBehaviour
         else
         {
             // Host: check if 3 guests inside
-            if (guestsInside.Count >= 3)
+            if (guestsInside.Count >= 3 && !combined)
             {
+                combined = true;
+                CombineValue(hostValue);
                 Debug.Log($"{transform.parent.name} COMBINED into next tier!");
+                Invoke("SelfDestruct", 0.75f);
             }
         }
     }
+
+    private void SelfDestruct()
+    {
+        CombineValue(0.0f);
+        Destroy(transform.parent.parent.parent.gameObject);
+    }
+
+    public static void CombineValue(float hV)
+    {
+        GameManager.combineValue = hV;
+    }
+
+    
 
     // Collision logic
     void OnTriggerEnter(Collider other)
