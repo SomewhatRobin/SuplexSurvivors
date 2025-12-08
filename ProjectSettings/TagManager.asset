@@ -7,6 +7,11 @@ TagManager:
   - Grappler
   - Enemy
   - StkEnemy
+  - ProjEnemy
+  - KOEnemy
+  - PlayerAim
+  - Graphix
+  - OffScreen
   layers:
   - Default
   - TransparentFX
@@ -15,10 +20,10 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - PlrProj
+  - Enemy
+  - Graphix
   - 
   - 
   - 
