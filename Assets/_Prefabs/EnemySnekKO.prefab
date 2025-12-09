@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 1e600e536ffead647bd81f670443b36e, type: 3}
     - target: {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
       propertyPath: m_Name
-      value: SnekEnemyKO
+      value: EnemySnekKO
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -13,7 +13,7 @@ TagManager:
   - Graphix
   - OffScreen
   - EnemyS
-  - EnemyW
+  - EnemyT
   layers:
   - Default
   - TransparentFX
@@ -26,7 +26,7 @@ TagManager:
   - PlrProj
   - Enemy
   - Graphix
-  - 
+  - EnChip
   - 
   - 
   - 

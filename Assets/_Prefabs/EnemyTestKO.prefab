@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 4349523809607610309}
   - component: {fileID: 2117321212861172181}
   m_Layer: 10
-  m_Name: TestEnemyKO
+  m_Name: EnemyTestKO
   m_TagString: KOEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

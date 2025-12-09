@@ -49,7 +49,7 @@ public class PlayerControls : MonoBehaviour
         doneDash = true;
         poBu = false; 
         roDr = false;
-       
+       lastHeld = 0;
     }
 
     // Update is called once per frame
@@ -257,7 +257,7 @@ public class PlayerControls : MonoBehaviour
     public void emptyHands(int slamMult) //Hides the held enemy, gives score according to a multiplier, and spawns the enemy's spinning body
     {
         grabThrows.myHands[2].SetActive(false);
-        GameManager.Score += 10 * slamMult;
+        GameManager.Score += 10 * slamMult * lastHeld;
         Instantiate(whatHit[lastHeld - 1], transform.position, Quaternion.Euler(48f, 0f, 0f)); //SHOULD spawn the defeated enemy after a slam
 
     }

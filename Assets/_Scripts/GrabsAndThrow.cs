@@ -328,26 +328,23 @@ public class GrabsAndThrow : MonoBehaviour
 
         }
     }
+
     private void mageGrip() //Launch grab
     {
         if(theHaul != 0 && !lifted)
         {
             myHands[2].SetActive(true);
-            //Resets variables to mirror state after whiff
-            goFar = false;
-            goNear = false;
-            armStretch = true;
-            doneGrab = true;
-            transform.position = waypoint[1].position; //Teleports(?) arms to player
+            
+            CleanGrab(); //Resets variables to mirror state after whiff, Teleports(?) arms to player
             //Add something here to skip cooldowns, this should let you throw RIGHT away
             inHand = true;
             SpriteRenderer sr = myHands[2].GetComponent<SpriteRenderer>();
-            sr.sprite = theHeld[theHaul-1];
+            sr.sprite = theHeld[theHaul - 1];
 
         }
 
         //Pause Check, goes after lifted enemy to avoid bugs
-        if(inHand || GameManager.isPaused)
+        if (inHand || GameManager.isPaused)
         {
             return;
         }
@@ -393,6 +390,15 @@ public class GrabsAndThrow : MonoBehaviour
             SwitchTargets();
         }
        
+    }
+
+    public void CleanGrab()
+    {
+        goFar = false;
+        goNear = false;
+        armStretch = true;
+        doneGrab = true;
+        transform.position = waypoint[1].position;
     }
 
     private void bigbyBolt() //Grab part of dash grab
