@@ -12,15 +12,28 @@ public class FriendlyHitbox : MonoBehaviour
 
     private void OnTriggerEnter (Collider collision)
     {
-        if (collision.transform.CompareTag("Enemy")) //Can use else if for other enemy types/stack tiers
+
+        if (collision.transform.CompareTag("EnemyS")) //Can use else if for other enemy types/stack tiers
         {
-            GameManager.Score += 10 * cuántosHit; //PlaceHolder value, can use EXP instead/also spawn exp drops for stuff like this
+            GameManager.Score += 5 * cuántosHit; //PlaceHolder value, can use EXP instead/also spawn exp drops for stuff like this
 
             Instantiate(whatHit[0], transform.position, Quaternion.Euler(61.6f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
             Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit
                                                             //This is set to destroy the parent because the hitbox is a separate object
 
             cuántosHit++;
+        }
+
+        else if (collision.transform.CompareTag("Enemy")) //Can use else if for other enemy types/stack tiers
+        {
+            GameManager.Score += 10 * cuántosHit; //PlaceHolder value, can use EXP instead/also spawn exp drops for stuff like this
+
+            Instantiate(whatHit[1], transform.position, Quaternion.Euler(61.6f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
+            Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit
+                                                            //This is set to destroy the parent because the hitbox is a separate object
+
+            cuántosHit++;
+
         }
 
 

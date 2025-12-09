@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whatHit:
+  - {fileID: 5280064241267236079, guid: 18855c5736c17b14f921850c248f8951, type: 3}
   - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
 --- !u!1 &601233291918615271
 GameObject:
@@ -486,6 +487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whatHit:
+  - {fileID: 5280064241267236079, guid: 18855c5736c17b14f921850c248f8951, type: 3}
   - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
 --- !u!1 &2444726089264075248
 GameObject:
@@ -608,6 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whatHit:
+  - {fileID: 5280064241267236079, guid: 18855c5736c17b14f921850c248f8951, type: 3}
   - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
 --- !u!1 &2547185116207654434
 GameObject:
@@ -1487,8 +1490,10 @@ MonoBehaviour:
   inHand: 0
   lifted: 0
   heldEnemy:
+  - {fileID: 206248372071087485, guid: 842aaa5430d32e644a8a89d38b9f23ca, type: 3}
   - {fileID: 42727083911948082, guid: 4f106164892ac20428e49b0097efee0a, type: 3}
   theHeld:
+  - {fileID: 21300000, guid: 1e600e536ffead647bd81f670443b36e, type: 3}
   - {fileID: 21300000, guid: 9d180930faafbab4392a7bbf45111a12, type: 3}
   counterHit: 0
   endLag: 0
@@ -2052,6 +2057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whatHit:
+  - {fileID: 5280064241267236079, guid: 18855c5736c17b14f921850c248f8951, type: 3}
   - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
 --- !u!1 &7509712156135595060
 GameObject:
@@ -2172,6 +2178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whatHit:
+  - {fileID: 5280064241267236079, guid: 18855c5736c17b14f921850c248f8951, type: 3}
   - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
 --- !u!1 &8023868425820300100
 GameObject:
@@ -2339,10 +2346,12 @@ MonoBehaviour:
   hidArms: {fileID: 6493896328442254086}
   armTango: {fileID: 8780610791465375851}
   whatHit:
+  - {fileID: 5280064241267236079, guid: 18855c5736c17b14f921850c248f8951, type: 3}
   - {fileID: 7298833321073414706, guid: 0552bede7d0c7bf4a9d476d71e469fa2, type: 3}
   flipSprite: 0
   poBu: 0
   roDr: 0
+  lastHeld: 0
   grabThrows: {fileID: 1919308944568396023}
 --- !u!95 &3635582624662247904
 Animator:

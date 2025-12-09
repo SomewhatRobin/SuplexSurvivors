@@ -12,6 +12,8 @@ TagManager:
   - PlayerAim
   - Graphix
   - OffScreen
+  - EnemyS
+  - EnemyW
   layers:
   - Default
   - TransparentFX

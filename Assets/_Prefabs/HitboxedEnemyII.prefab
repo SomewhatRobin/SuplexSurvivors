@@ -316,6 +316,7 @@ MonoBehaviour:
   guestChip: {fileID: 7036165229761304632}
   hostValue: 0
   active: 1
+  combined: 0
 --- !u!1 &4911265642551614688
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +443,7 @@ MonoBehaviour:
   guestChip: {fileID: 7036165229761304632}
   hostValue: 0
   active: 1
+  combined: 0
 --- !u!1 &6629004088360456713
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,8 +505,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: -3.5, y: 0.55, z: -6.31}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8091998301566207743}
   - {fileID: 6167499667639776798}
@@ -550,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcbd15920ac48d74e8a780317ee0cb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
   deltaSpeed: 3
 --- !u!1 &8672961119358724362
 GameObject:

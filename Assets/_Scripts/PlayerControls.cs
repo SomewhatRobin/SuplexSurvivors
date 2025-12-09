@@ -29,6 +29,7 @@ public class PlayerControls : MonoBehaviour
     public GameObject[] whatHit;
     public bool flipSprite;
     public bool poBu, roDr; //For Animations
+    public int lastHeld; //Also for anims
 
     public GrabsAndThrow grabThrows;
 
@@ -196,41 +197,10 @@ public class PlayerControls : MonoBehaviour
             if ((xDir * xDir) + (zDir * zDir) > 1.05f) //If the value of the input has it outside a circle w/ radius 1.05 [IF THEY ARE ON KB]
             {
 
-                //Sets xDir and zDir to be (Direction / Magnitude), so total move speed is 1.
-                //TODO: Shorten this, it doesn't need the if else anymore
-                if (xDir > 0)
-                {
-                    /*
-                    if (!theWiz.flipX)//&& !(grabThrows.endLag || grabThrows.btnPress))
-                    {
-                        flipSprite = true;
-                    }
-                    */
+                //Sets xDir and zDir to be (Direction / Magnitude), so total move speed is only multiplied by 1 * speed.              
                     xDir = xDir / vecMag;
-                   
-
-                }
-                else
-                {
-                    /*
-                    if (theWiz.flipX)//&& !(grabThrows.endLag || grabThrows.btnPress))
-                    {
-                        flipSprite = false;
-                    }
-                    */
-                    xDir = xDir / vecMag;
-                   
-
-                }
-
-                if (zDir > 0)
-                {
                     zDir = zDir / vecMag;
-                }
-                else
-                {
-                    zDir = zDir / vecMag;
-                }
+
             }
 
 
@@ -271,6 +241,11 @@ public class PlayerControls : MonoBehaviour
                 //End iFrames, turbo speed, and dash.   
                 rb.velocity = Vector3.zero;
                 rollForce = 5.0f;
+                if (grabThrows.theHaul != 0)
+                {
+                    lastHeld = grabThrows.theHaul;
+                }
+
                 doneDash = true;
             }
                
@@ -283,7 +258,7 @@ public class PlayerControls : MonoBehaviour
     {
         grabThrows.myHands[2].SetActive(false);
         GameManager.Score += 10 * slamMult;
-        Instantiate(whatHit[0], transform.position, Quaternion.Euler(48f, 0f, 0f));
+        Instantiate(whatHit[lastHeld - 1], transform.position, Quaternion.Euler(48f, 0f, 0f)); //SHOULD spawn the defeated enemy after a slam
 
     }
 
