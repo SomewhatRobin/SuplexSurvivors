@@ -4,33 +4,44 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    [Header("Stats")]
     public float rollForce;
     public float speed;
     public float dashMult;
+    [Header("Directions")]
     public Transform dashGoal;
     public Vector3 myWay;
     public float vecMag = 0f;
     public float deadZone = 0.02f;
     public float targDist = 6f;
     public Vector3 armWay;
+
+    [Header("Player State")]
     public bool hiSpeed;
     public bool doneDash;
     public Vector3 dashDir;
+    public bool kbApplied;
+    public bool kbReset;
     private Animator pAnim;
     private float dashTime;
+    public Vector3 kbDir;
     //public float dashDecay = 0.02f;
 
     // [SerializeField]
     //{ get; private set; }
     private Rigidbody rb;
+    [Header("Other Parts")]
     public SpriteRenderer theWiz;
     public GameObject hidArms;
     public GameObject armTango;
+    public GameObject hurtBox;
     public GameObject[] whatHit;
+    [Header("Display & Animation Logic")]
     public bool flipSprite;
     public bool poBu, roDr; //For Animations
     public int lastHeld; //Also for anims
 
+    [Header("The Horror")]
     public GrabsAndThrow grabThrows;
 
     // Start is called before the first frame update
@@ -44,18 +55,32 @@ public class PlayerControls : MonoBehaviour
         dashGoal.position = armTango.transform.position;
         //theWiz = GetComponentInChildren<SpriteRenderer>();
         flipSprite = false;
+        kbDir = Vector3.zero;
         dashMult = 3f;
         hiSpeed = false;
         doneDash = true;
         poBu = false; 
         roDr = false;
+        kbApplied = false;
        lastHeld = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Pause check, nothing happens if the game is paused
+        //Velocity check
+     
+        if (rb.velocity.magnitude > 0.05f && !kbApplied && !(hiSpeed || !doneDash) ) //If the player was hit by an enemy (and isn't dashing)
+        {
+            Debug.LogWarning($"Knockback Applied to Player! Vector is [{rb.velocity.x}, {rb.velocity.y}, {rb.velocity.z}].");
+            kbDir = rb.velocity.normalized;
+            kbApplied = true;
+            Invoke("StopKB", 0.5f);
+        }
+     
+   
+
+            //Pause check, nothing happens if the game is paused
         if (GameManager.isPaused)
         {
             return;
@@ -92,11 +117,10 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-        //Function for walking
-        if (doneDash)
-        {
-            Stroll();
-        }
+
+
+
+      
 
         if (!roDr && grabThrows.dunkin)
         {
@@ -114,7 +138,18 @@ public class PlayerControls : MonoBehaviour
             //Also do the SM64 thing
         }
 
-        
+
+        if (kbApplied)
+        {
+            //KB Stuff goes here
+            //return;
+        }
+
+        //Function for walking
+        if (doneDash)
+        {
+            Stroll();
+        }
 
         //Sprite flipping, moved this up here so it works. Only works if the player isn't holding the grab button and can use the grab button. Shorten to flippable state?
         if (myWay.x > deadZone && (!grabThrows.btnPress && !grabThrows.counterHit))
@@ -220,6 +255,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (!hiSpeed)
         {
+            StopKB();
             //Set the direction of the dash towards the target, Raise movement speed, and go REAL fast.
             //TODO: Start iFrames   
             dashDir = armTango.transform.position - transform.position;
@@ -253,6 +289,25 @@ public class PlayerControls : MonoBehaviour
 
 
     }
+
+    private void StopKB()
+    {
+        if (!hiSpeed)
+        {
+            if (!grabThrows.dash) //Turn off Reset warning for dashes
+            Debug.LogWarning("Reset KnockBack!");
+
+            rb.velocity = Vector3.zero;
+            kbApplied = false;
+        }
+
+        else
+        {
+            Debug.LogWarning("Dash Cancel!");
+        }
+
+    }
+
 
     public void emptyHands(int slamMult) //Hides the held enemy, gives score according to a multiplier, and spawns the enemy's spinning body
     {

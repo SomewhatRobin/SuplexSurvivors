@@ -19,8 +19,12 @@ public class FriendlySlambox : MonoBehaviour
             GameManager.Score += 10; //PlaceHolder value, can use EXP instead/also spawn exp drops for stuff like this
 
             Instantiate(whatHit[0], transform.position, Quaternion.Euler(48f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
-            Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit
-                                                            //This is set to destroy the parent because the hitbox is a separate object
+           if (collision.transform.parent.gameObject != null)
+           {
+                Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit
+                                                                //This is set to destroy the parent because the hitbox is a separate object
+           }
+
         }
 
         else if (collision.transform.CompareTag("Enemy")) //Can use else if for other enemy types/stack tiers
@@ -28,8 +32,11 @@ public class FriendlySlambox : MonoBehaviour
             GameManager.Score += 20; //PlaceHolder value, can use EXP instead/also spawn exp drops for stuff like this
 
             Instantiate(whatHit[1], transform.position, Quaternion.Euler(48f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
-            Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit
-                                                            //This is set to destroy the parent because the hitbox is a separate object
+            if (collision.transform.parent.gameObject != null)
+            {
+                Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit
+                                                                //This is set to destroy the parent because the hitbox is a separate object
+            }
         }
 
         else if (collision.transform.CompareTag("EnemyT")) //Can use else if for other enemy types/stack tiers
@@ -46,9 +53,12 @@ public class FriendlySlambox : MonoBehaviour
                     {
                         GameManager.Score += 50; //PlaceHolder value, can use EXP instead/also spawn exp drops for stuff like this
                         Instantiate(whatHit[2], transform.position, Quaternion.Euler(61.6f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
-                        Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit
-                                                                        //This is set to destroy the parent because the hitbox is a separate object
-                       
+                        if (collision.transform.parent.gameObject != null)
+                        {
+                            Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit
+                                                                            //This is set to destroy the parent because the hitbox is a separate object
+                        }
+
                     }
 
                     else //Take damage and KB

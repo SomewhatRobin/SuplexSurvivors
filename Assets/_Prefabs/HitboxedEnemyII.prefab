@@ -566,6 +566,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
+  ui: {fileID: 0}
+  bumpForce: 12
 --- !u!1 &8672961119358724362
 GameObject:
   m_ObjectHideFlags: 0

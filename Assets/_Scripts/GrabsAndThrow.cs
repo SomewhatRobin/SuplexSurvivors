@@ -90,7 +90,7 @@ public class GrabsAndThrow : MonoBehaviour
             if (secondsHeld > 4.0f * targetTimeHeld && !grabby && !lifted)
             {
                 //This is to fix some weird bug where the arms can get stuck. For now this goes nuclear and sets everything to a default-ish state
-                Debug.LogWarning("You wave your hands and wiggle your fingers...");
+                //Debug.LogWarning("You wave your hands and wiggle your fingers...");
                 counterHit = false;
                 goFar = true;
                 doneGrab = false;
@@ -186,7 +186,7 @@ public class GrabsAndThrow : MonoBehaviour
                     {
                         GameManager.staMana++; //DEBUGGING: Increments instead of decrementing
                         //Player dash grab goes here
-                        Debug.LogWarning("Dash Grab!");
+                        //Debug.LogWarning("Dash Grab!");
                         dash = true;
                         counterHit = true;
                         endLag = true;
@@ -279,7 +279,7 @@ public class GrabsAndThrow : MonoBehaviour
                 {
                     timePct = 1.0f;
                     //YONJYU HACHI HISATSSU WAZA
-                    Debug.LogWarning("Bigby's Big Book, Page 360!");
+                   // Debug.LogWarning("Bigby's Big Book, Page 360!");
                     tech48 = true;
                     btnPress = false;
                     theHaul = 0;
@@ -299,7 +299,7 @@ public class GrabsAndThrow : MonoBehaviour
                     {
                         GameManager.staMana++; //DEBUGGING: Increments instead of decrementing
                         //Rock Drop
-                        Debug.LogWarning("Rubble Dump!");
+                        //Debug.LogWarning("Rubble Dump!");
                         dunkin = true;                       
                         btnPress = false;
                         theHaul = 0;
@@ -312,7 +312,7 @@ public class GrabsAndThrow : MonoBehaviour
                     else
                     {
                         // Maybe have some "RD fail" animation?
-                        Debug.LogWarning("Gotta hold for a slam...");
+                      //  Debug.LogWarning("Gotta hold for a slam...");
 
                     }
 
@@ -477,7 +477,7 @@ public class GrabsAndThrow : MonoBehaviour
 
         if (counterHit)
         {
-            Debug.LogWarning("Hands are ready.");
+           // Debug.LogWarning("Hands are ready.");
             myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, 1f);
             myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.gray, Color.white, 1f);
         }
@@ -504,7 +504,7 @@ public class GrabsAndThrow : MonoBehaviour
 
         if (endLag && !lifted)
         {
-            Debug.LogWarning("Hands are recasting...");
+           // Debug.LogWarning("Hands are recasting...");
             secondsHeld = 0f;   
         }
 
