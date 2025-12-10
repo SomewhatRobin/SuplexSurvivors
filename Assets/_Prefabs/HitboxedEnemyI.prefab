@@ -24,6 +24,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 1e600e536ffead647bd81f670443b36e, type: 3}
+    - target: {fileID: 3453050761147496198, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: m_TagString
+      value: EnemyS
+      objectReference: {fileID: 0}
+    - target: {fileID: 4911265642551614688, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: m_TagString
+      value: EnemyS
+      objectReference: {fileID: 0}
     - target: {fileID: 5736082619328995892, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 9.29

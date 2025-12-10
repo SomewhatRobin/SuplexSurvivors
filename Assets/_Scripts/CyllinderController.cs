@@ -48,7 +48,21 @@ public class Chip : MonoBehaviour
             if (guestsInside.Count >= 3 && !combined)
             {
                 combined = true;
-                CombineValue(hostValue);
+                if (gameObject.tag == "EnemyS") //if Snakes combine
+                {
+                    CombineValue(hostValue, 0);
+                }
+
+                else if (gameObject.tag == "Enemy") //if Knights combine
+                {
+                    CombineValue(hostValue, 1);
+                }
+
+                else if (gameObject.tag == "EnemyT") //replace with enemyC
+                {
+                    CombineValue(hostValue, 2);
+                }
+
                 Debug.Log($"{transform.parent.name} COMBINED into next tier!");
                 Invoke("SelfDestruct", 0.75f);
             }
@@ -57,13 +71,35 @@ public class Chip : MonoBehaviour
 
     private void SelfDestruct()
     {
-        CombineValue(0.0f);
+        //For now this clears all 3 combine values
+        CombineValue(0.0f, 0);
+        CombineValue(0.0f, 1);
+        CombineValue(0.0f, 2);
         Destroy(transform.parent.parent.parent.gameObject);
     }
 
-    public static void CombineValue(float hV)
+    public static void CombineValue(float hV, int NME)
     {
-        GameManager.combineValue = hV;
+        if (NME == 0)
+        {
+            GameManager.combineValue = hV;
+        }
+
+        else if (NME == 1)
+        {
+            GameManager.combineValue1 = hV;
+        }
+
+        else if (NME == 2)
+        {
+            GameManager.combineValue2 = hV;
+        }
+
+        else
+        {
+            GameManager.combineValue = 3.72f;
+        }
+
     }
 
     

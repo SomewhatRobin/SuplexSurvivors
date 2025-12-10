@@ -36,13 +36,25 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 6f899d9bedb67d14480c2393202e63c4, type: 3}
+    - target: {fileID: 3453050761147496198, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: m_TagString
+      value: EnemyT
+      objectReference: {fileID: 0}
     - target: {fileID: 4911265642551614688, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4911265642551614688, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: m_TagString
+      value: EnemyT
+      objectReference: {fileID: 0}
     - target: {fileID: 5736082619328995892, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
       propertyPath: m_LocalPosition.y
       value: -21.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 6629004088360456713, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6806061663091865176, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
       propertyPath: m_Name
