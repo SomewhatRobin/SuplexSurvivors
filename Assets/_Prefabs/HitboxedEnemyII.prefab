@@ -310,13 +310,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca96cca6ebae9e4490dae2bff511c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHostChip: 1
-  guestRecoveryTime: 2
-  hostChip: {fileID: 2520936070886247749}
-  guestChip: {fileID: 7036165229761304632}
-  hostValue: 0
-  active: 1
-  combined: 0
+  isHost: 1
+  nextTierPrefab: {fileID: 3007839086183979473, guid: a87983f4a6fe17e469c2e8f1e723fcb1, type: 3}
 --- !u!1 &4911265642551614688
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,13 +432,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca96cca6ebae9e4490dae2bff511c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHostChip: 0
-  guestRecoveryTime: 2
-  hostChip: {fileID: 2520936070886247749}
-  guestChip: {fileID: 7036165229761304632}
-  hostValue: 0
-  active: 1
-  combined: 0
+  isHost: 0
+  nextTierPrefab: {fileID: 3007839086183979473, guid: a87983f4a6fe17e469c2e8f1e723fcb1, type: 3}
 --- !u!1 &6629004088360456713
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,6 +548,7 @@ MonoBehaviour:
   atLethal: 0
   kbApplied: 0
   antiDumper: 0
+  nextTierPrefab: {fileID: 3007839086183979473, guid: a87983f4a6fe17e469c2e8f1e723fcb1, type: 3}
   rb: {fileID: 0}
 --- !u!1 &8672961119358724362
 GameObject:

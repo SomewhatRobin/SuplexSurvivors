@@ -1,177 +1,170 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Chip : MonoBehaviour
 {
-    [Header("Config")]
-    public bool isHostChip = true;   // true = Host, false = Guest
-    public float guestRecoveryTime = 2f;
+    [Header("Chip Settings")]
+    public bool isHost = false;                // Host or Guest chip
+    public GameObject nextTierPrefab;          // Assign in Inspector per enemy type
+    public float guestDuration = 1.2f;         // Time a guest stays active before restoring
 
-    [Header("Links")]
-    public Chip hostChip;            // guest → host
-    public Chip guestChip;           // host → guest
+    private float hostValue;                   // Random value for host competition
+    private HashSet<Chip> currentGuests = new HashSet<Chip>();
 
-    [Header("Runtime Debug")]
-    public float hostValue;          // random value
-    public bool active = true;
-    public bool combined = false;
+    private GameObject enemyRoot;              // Top-level enemy object
+    private Chip guestChip;                    // Reference to our guest chip
+    private bool isGuestActive = false;
+    private float guestTimer = 0f;
 
-    private float guestTimer;
-    private HashSet<Chip> guestsInside = new HashSet<Chip>();
+    private bool hasCombined = false;          // Prevent double-combine
 
-    void OnEnable()
+    void Awake()
     {
-        if (isHostChip)
+        enemyRoot = transform.root.gameObject;
+    }
+
+    void Start()
+    {
+        if (isHost)
         {
-            combined = false;
-            active = true;
-            hostValue = Random.value;            // Only hosts have value
-            guestsInside.Clear();
+            hostValue = Random.value;
+
+            // Safe lookup for GuestChip
+            Transform guestTransform = transform.parent.Find("GuestChip");
+            if (guestTransform != null)
+            {
+                guestChip = guestTransform.GetComponent<Chip>();
+                guestChip.isHost = false;
+                guestChip.isGuestActive = false;
+                guestChip.gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning($"{enemyRoot.name} has no GuestChip assigned!");
+            }
         }
     }
 
     void Update()
     {
-        if (!active) return;
-
-        if (!isHostChip)
+        if (isGuestActive)
         {
-            // Guest counting down to become host again
-            guestTimer -= Time.deltaTime;
-            if (guestTimer <= 0)
-                BecomeHost();
-        }
-        else
-        {
-            // Host: check if 3 guests inside
-            if (guestsInside.Count >= 3 && !combined)
-            {
-                combined = true;
-                if (gameObject.tag == "EnemyS") //if Snakes combine
-                {
-                    CombineValue(hostValue, 0);
-                }
-
-                else if (gameObject.tag == "Enemy") //if Knights combine
-                {
-                    CombineValue(hostValue, 1);
-                }
-
-                else if (gameObject.tag == "EnemyT") //replace with enemyC
-                {
-                    CombineValue(hostValue, 2);
-                }
-
-                Debug.Log($"{transform.parent.name} COMBINED into next tier!");
-                Invoke("SelfDestruct", 0.75f);
-            }
+            guestTimer += Time.deltaTime;
+            if (guestTimer >= guestDuration)
+                RestoreHost();
         }
     }
 
-    private void SelfDestruct()
-    {
-        //For now this clears all 3 combine values
-        CombineValue(0.0f, 0);
-        CombineValue(0.0f, 1);
-        CombineValue(0.0f, 2);
-        Destroy(transform.parent.parent.parent.gameObject);
-    }
-
-    public static void CombineValue(float hV, int NME)
-    {
-        if (NME == 0)
-        {
-            GameManager.combineValue = hV;
-        }
-
-        else if (NME == 1)
-        {
-            GameManager.combineValue1 = hV;
-        }
-
-        else if (NME == 2)
-        {
-            GameManager.combineValue2 = hV;
-        }
-
-        else
-        {
-            GameManager.combineValue = 3.72f;
-        }
-
-    }
-
-    
-
-    // Collision logic
-    void OnTriggerEnter(Collider other)
-    {
-        Chip otherChip = other.GetComponent<Chip>();
-        if (otherChip == null || !otherChip.active) return;
-
-        // Host vs Host → compare and convert loser to guest
-        if (isHostChip && otherChip.isHostChip)
-            HandleHostCollision(otherChip);
-
-        // Count guests inside
-        if (isHostChip && !otherChip.isHostChip)
-            guestsInside.Add(otherChip);
-    }
-
-    void OnTriggerExit(Collider other)
+    // =======================
+    // TRIGGER LOGIC
+    // =======================
+    private void OnTriggerEnter(Collider other)
     {
         Chip otherChip = other.GetComponent<Chip>();
         if (otherChip == null) return;
 
-        // Remove guest from inside count
-        if (isHostChip)
-            guestsInside.Remove(otherChip);
+        // Host vs Host conflict
+        if (isHost && otherChip.isHost)
+        {
+            CompareHosts(otherChip);
+        }
 
-        // Guest leaving -> start timer to return to host
-        if (!isHostChip)
-            StartGuestTimer();
+        // Host receiving guests
+        if (isHost && otherChip.isGuestActive)
+        {
+            currentGuests.Add(otherChip);
+            CheckForCombine();
+        }
     }
 
-    // Host vs Host comparison
-    void HandleHostCollision(Chip other)
+    private void OnTriggerExit(Collider other)
     {
-        if (hostValue == other.hostValue)
-            return; // rare tie
+        Chip otherChip = other.GetComponent<Chip>();
+        if (otherChip == null) return;
 
+        // Remove leaving guests
+        if (isHost && currentGuests.Contains(otherChip))
+        {
+            currentGuests.Remove(otherChip);
+        }
+
+        // If guest leaves a host area, start timer
+        if (!isHost && isGuestActive)
+        {
+            guestTimer = 0f;
+        }
+    }
+
+    // =======================
+    // HOST COMPARISON
+    // =======================
+    private void CompareHosts(Chip other)
+    {
         if (hostValue < other.hostValue)
             BecomeGuest();
-        // other will handle its own loss in its own script
     }
 
-    // State changes
-    void BecomeGuest()
+    // =======================
+    // GUEST LOGIC
+    // =======================
+    private void BecomeGuest()
     {
-        Debug.Log($"{transform.parent.name} became GUEST");
+        if (guestChip == null) return;
 
-        active = false;
-        isHostChip = false;
+        // Immediately mark as guest
+        isHost = false;
+        isGuestActive = true;
+        guestTimer = 0f;
 
-        gameObject.SetActive(false);
+        // Swap GameObjects
+        this.gameObject.SetActive(false);
         guestChip.gameObject.SetActive(true);
 
-        guestChip.StartGuestTimer();
+        // Ensure guest chip is properly active
+        guestChip.isHost = false;
+        guestChip.isGuestActive = true;
+        guestChip.guestTimer = 0f;
+
+        Debug.Log($"{enemyRoot.name} became GUEST");
     }
 
-    void StartGuestTimer()
+    private void RestoreHost()
     {
-        guestTimer = guestRecoveryTime;
-        active = true;
+        isHost = true;
+        isGuestActive = false;
+
+        this.gameObject.SetActive(true);
+
+        if (guestChip != null)
+        {
+            guestChip.isGuestActive = false;
+            guestChip.gameObject.SetActive(false);
+        }
+
+        Debug.Log($"{enemyRoot.name} restored to HOST");
     }
 
-    void BecomeHost()
+    // =======================
+    // COMBINE LOGIC
+    // =======================
+    private void CheckForCombine()
     {
-        Debug.Log($"{transform.parent.name} returned to HOST");
+        if (isHost && currentGuests.Count >= 3 && !hasCombined)
+        {
+            DoCombine();
+        }
+    }
 
-        active = true;
-        isHostChip = true;
+    private void DoCombine()
+    {
+        hasCombined = true;
+        Debug.Log($"{enemyRoot.name} COMBINED into next tier!");
 
-        gameObject.SetActive(false);
-        hostChip.gameObject.SetActive(true);
+        if (nextTierPrefab != null)
+        {
+            Instantiate(nextTierPrefab, enemyRoot.transform.position, enemyRoot.transform.rotation);
+        }
+
+        Destroy(enemyRoot);
     }
 }

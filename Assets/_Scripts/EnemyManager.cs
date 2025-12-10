@@ -8,6 +8,7 @@ public class EnemyManager : MonoBehaviour
     public float deltaSpeed = 3.0f; 
     private Rigidbody2D rb;
     private Transform player;
+    public GameObject nextTierPrefab;  // assign in inspector
 
     void Start()
     {

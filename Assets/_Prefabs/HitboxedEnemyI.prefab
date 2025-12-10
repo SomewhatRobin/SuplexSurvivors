@@ -12,10 +12,26 @@ PrefabInstance:
       propertyPath: speed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -1300004655855099326, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: nextTierPrefab
+      value: 
+      objectReference: {fileID: 6806061663091865176, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
     - target: {fileID: 2213471726128166695, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.37
       objectReference: {fileID: 0}
+    - target: {fileID: 2520936070886247749, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: isHost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520936070886247749, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: hostChip
+      value: 
+      objectReference: {fileID: 259166605379473062}
+    - target: {fileID: 2520936070886247749, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: nextTierPrefab
+      value: 
+      objectReference: {fileID: 6806061663091865176, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
     - target: {fileID: 3034569279293316254, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
       propertyPath: m_TagString
       value: EnemyS
@@ -48,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7036165229761304632, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: nextTierPrefab
+      value: 
+      objectReference: {fileID: 6806061663091865176, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
     - target: {fileID: 8455914792090523087, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.13
@@ -117,3 +137,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+--- !u!114 &259166605379473062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2520936070886247749, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+  m_PrefabInstance: {fileID: 2406214507114087395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dca96cca6ebae9e4490dae2bff511c5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

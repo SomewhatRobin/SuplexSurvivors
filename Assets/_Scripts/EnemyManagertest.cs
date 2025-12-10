@@ -10,6 +10,7 @@ public class EnemyManagertest : MonoBehaviour
     public bool atLethal; //When an enemy runs out of health, they can be grabbed or defeated. For now, this only applies to BrickTon.
     public bool kbApplied; //For working with player hitboxes
     public bool antiDumper = false; //Flag to keep RD from duplicating BrickTon/other large enemies on kill.
+    public GameObject nextTierPrefab;  // assign in inspector
 
     public Rigidbody rb;
     private Transform player;
