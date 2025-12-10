@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        Debug.LogWarning($"Player took {amount} damage!");
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHPUI();

@@ -3,7 +3,7 @@
 public class EnemyDamage : MonoBehaviour
 {
     public int damage = 10;
-    UIManager ui;
+    public UIManager ui;
 
     void Start()
     {
@@ -13,9 +13,10 @@ public class EnemyDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"[EnemyDamage] OnTriggerEnter. This: {gameObject.name}, Other: {other.name}, Tag: {other.tag}");
+        //Debug.Log($"[EnemyDamage] OnTriggerEnter. This: {gameObject.name}, Other: {other.name}, Tag: {other.tag}");
         if (other.CompareTag("Player"))
         {
+            Debug.Log($"[EnemyDamage] OnTriggerEnter. This: {gameObject.name}, Other: {other.name}, Tag: {other.tag}");
             if (ui == null) Debug.LogError("[EnemyDamage] UIManager null, can't apply damage");
             else
             {
@@ -27,6 +28,11 @@ public class EnemyDamage : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"[EnemyDamage] OnCollisionEnter with {collision.gameObject.name} Tag:{collision.gameObject.tag}");
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log($"[EnemyDamage] OnCollisionEnter with {collision.gameObject.name} Tag:{collision.gameObject.tag}");
+        }
+
     }
+
 }
