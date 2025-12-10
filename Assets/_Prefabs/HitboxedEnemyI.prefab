@@ -32,9 +32,17 @@ PrefabInstance:
       propertyPath: nextTierPrefab
       value: 
       objectReference: {fileID: 6806061663091865176, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+    - target: {fileID: 2907323811261162829, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3034569279293316254, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
       propertyPath: m_TagString
       value: EnemyS
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174176877365274921, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3355764535958904000, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
       propertyPath: m_Sprite
@@ -135,7 +143,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6806061663091865176, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 149698293789321864}
   m_SourcePrefab: {fileID: 100100000, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
 --- !u!114 &259166605379473062 stripped
 MonoBehaviour:
@@ -148,3 +159,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca96cca6ebae9e4490dae2bff511c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &9157905318000457147 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6806061663091865176, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+  m_PrefabInstance: {fileID: 2406214507114087395}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &149698293789321864
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9157905318000457147}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -487,6 +487,9 @@ MonoBehaviour:
   DebugCmbTMP: {fileID: 169205646}
   DebugCmb1TMP: {fileID: 1731436668}
   DebugCmb2TMP: {fileID: 979540055}
+  hpText: {fileID: 0}
+  maxHealth: 50
+  currentHealth: 0
 --- !u!114 &334615555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,6 +514,10 @@ PrefabInstance:
     - target: {fileID: 601233291918615271, guid: fa3efa430f44cc940905a3b36439699a, type: 3}
       propertyPath: m_Name
       value: PlayerCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 601233291918615271, guid: fa3efa430f44cc940905a3b36439699a, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1760503515435314357, guid: fa3efa430f44cc940905a3b36439699a, type: 3}
       propertyPath: m_LocalPosition.x
