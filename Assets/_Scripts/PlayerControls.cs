@@ -22,6 +22,7 @@ public class PlayerControls : MonoBehaviour
     public Vector3 dashDir;
     public bool kbApplied;
     public bool kbReset;
+    public bool iFrames;
     private Animator pAnim;
     private float dashTime;
     public Vector3 kbDir;
@@ -47,6 +48,7 @@ public class PlayerControls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        iFrames = false;
         dashTime = 0.00f;
         rb = GetComponent<Rigidbody>();
         pAnim = GetComponent<Animator>();
@@ -75,12 +77,21 @@ public class PlayerControls : MonoBehaviour
             Debug.LogWarning($"Knockback Applied to Player! Vector is [{rb.velocity.x}, {rb.velocity.y}, {rb.velocity.z}].");
             kbDir = rb.velocity.normalized;
             kbApplied = true;
-            Invoke("StopKB", 0.5f);
+            Invoke("StopKB", 0.24f);
         }
-     
-   
 
-            //Pause check, nothing happens if the game is paused
+        if (iFrames)
+        {
+            hurtBox.SetActive(false);
+        }
+
+        else if (!iFrames) 
+        {
+            hurtBox.SetActive(true);
+        }
+
+
+        //Pause check, nothing happens if the game is paused
         if (GameManager.isPaused)
         {
             return;
@@ -117,10 +128,13 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-
-
-
-      
+        if (grabThrows.lifted)
+        {
+            if (grabThrows.theHaul != 0)
+            {
+                lastHeld = grabThrows.theHaul;
+            }
+        }
 
         if (!roDr && grabThrows.dunkin)
         {
@@ -255,6 +269,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (!hiSpeed)
         {
+            iFrames = true;
             StopKB();
             //Set the direction of the dash towards the target, Raise movement speed, and go REAL fast.
             //TODO: Start iFrames   
@@ -274,7 +289,8 @@ public class PlayerControls : MonoBehaviour
             if ((transform.position - dashGoal.position).magnitude < 1f || dashTime > 0.25f) //If the dash is over...
             {
                 dashTime = 0f;
-                //End iFrames, turbo speed, and dash.   
+                //End iFrames, turbo speed, and dash.
+                Invoke("endInvuln", 0.06f);
                 rb.velocity = Vector3.zero;
                 rollForce = 5.0f;
                 if (grabThrows.theHaul != 0)
@@ -284,10 +300,20 @@ public class PlayerControls : MonoBehaviour
 
                 doneDash = true;
             }
-               
+
         }
 
 
+    }
+
+    public void beInvuln()
+    {
+        iFrames = true;
+    }
+
+    public void endInvuln()
+    {
+        iFrames = false;
     }
 
     private void StopKB()
@@ -314,7 +340,6 @@ public class PlayerControls : MonoBehaviour
         grabThrows.myHands[2].SetActive(false);
         GameManager.Score += 10 * slamMult * lastHeld;
         Instantiate(whatHit[lastHeld - 1], transform.position, Quaternion.Euler(48f, 0f, 0f)); //SHOULD spawn the defeated enemy after a slam
-
     }
 
     public void stepAside(float midSpeed) //Gives the player a little speed after a PB, or slows them down a bit after RD.

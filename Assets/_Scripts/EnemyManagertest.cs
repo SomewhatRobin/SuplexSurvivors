@@ -13,7 +13,7 @@ public class EnemyManagertest : MonoBehaviour
     public GameObject nextTierPrefab;  // assign in inspector
 
     public Rigidbody rb;
-    private Transform player;
+    public Transform player;
 
     void Start()
     {
@@ -22,6 +22,7 @@ public class EnemyManagertest : MonoBehaviour
         atLethal = false;
         antiDumper = false;
     }
+
 
     void Update()
     {

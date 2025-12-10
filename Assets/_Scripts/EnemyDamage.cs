@@ -33,7 +33,7 @@ public class EnemyDamage : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player") && !hasHit)
+        if (collision.gameObject.CompareTag("PlayerWkPoint") && !hasHit)
         {
             hasHit = true;
             Invoke("readyUp", 0.2f);

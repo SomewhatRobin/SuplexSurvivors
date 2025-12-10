@@ -14,6 +14,7 @@ TagManager:
   - OffScreen
   - EnemyS
   - EnemyT
+  - PlayerWkPoint
   layers:
   - Default
   - TransparentFX

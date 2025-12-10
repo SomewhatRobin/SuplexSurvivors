@@ -281,7 +281,7 @@ MonoBehaviour:
   - {fileID: 71911105}
   - {fileID: 71911104}
   - {fileID: 71911103}
-  spawnInterval: 30
+  spawnInterval: 1.5
   totalEnemies: 5000
 --- !u!114 &169205646 stripped
 MonoBehaviour:
@@ -514,6 +514,10 @@ PrefabInstance:
     - target: {fileID: 601233291918615271, guid: fa3efa430f44cc940905a3b36439699a, type: 3}
       propertyPath: m_Name
       value: PlayerCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 662768993491328744, guid: fa3efa430f44cc940905a3b36439699a, type: 3}
+      propertyPath: m_TagString
+      value: PlayerWkPoint
       objectReference: {fileID: 0}
     - target: {fileID: 1760503515435314357, guid: fa3efa430f44cc940905a3b36439699a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1163,6 +1167,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 149698293789321864, guid: b4e3395533c7d134798678ffb53daf4f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6070261773186602540, guid: b4e3395533c7d134798678ffb53daf4f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

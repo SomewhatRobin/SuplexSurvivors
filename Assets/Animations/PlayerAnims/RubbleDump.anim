@@ -1590,6 +1590,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: beInvuln
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.9
     functionName: emptyHands
     data: 
@@ -1620,6 +1627,13 @@ AnimationClip:
     messageOptions: 0
   - time: 1.0666667
     functionName: emergExit
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.1166667
+    functionName: endInvuln
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
