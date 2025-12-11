@@ -9,6 +9,7 @@ public class GrabsAndThrow : MonoBehaviour
     //Player's grab target, invis(?)
     public Transform[] waypoint;
     public GameObject armCast; //Set up for below
+    public float manaFill;
    
     //Arm-merang goes to and from the player
     private Vector3 currentTarget; //From Ass4, platform movement for the grab
@@ -58,7 +59,7 @@ public class GrabsAndThrow : MonoBehaviour
         counterHit = false;
         endLag = false;
         btnPress = false;
-
+        manaFill = 0f;
         dash = false;
         grabby = false;
         launchMult = 1f;
@@ -121,6 +122,17 @@ public class GrabsAndThrow : MonoBehaviour
             {
                 return;
             }
+
+            if (GameManager.staMana < 2)
+            {
+                manaFill += Time.deltaTime * .8f;
+                if (manaFill > 1f)
+                {
+                    manaFill = 0f;
+                    GameManager.staMana++;
+                }
+            }
+
             //Controls are Space, A, or B on controller for grab
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
             {
@@ -192,7 +204,7 @@ public class GrabsAndThrow : MonoBehaviour
                     myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.blue, 1f);
                     if (GameManager.staMana > 0 && (!counterHit || !endLag))
                     {
-                        GameManager.staMana++; //DEBUGGING: Increments instead of decrementing
+                        GameManager.staMana--; 
                         //Player dash grab goes here
                         //Debug.LogWarning("Dash Grab!");
                         dash = true;
@@ -328,7 +340,7 @@ public class GrabsAndThrow : MonoBehaviour
 
                     if (GameManager.staMana > 0) //Not having stamina here means you have retry the input.
                     {
-                        GameManager.staMana++; //DEBUGGING: Increments instead of decrementing
+                        GameManager.staMana--; //DEBUGGING: Increments instead of decrementing
                         //Rock Drop
                         //Debug.LogWarning("Rubble Dump!");
                         dunkin = true;                       

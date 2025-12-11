@@ -12,7 +12,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI DebugCmb2TMP;
     public TextMeshProUGUI hpText;
     public GameObject[] spellPages;
+    public GameObject[] manaBar;
     public static int bookMark;
+    public int reMana;
 
     [Header("Health")]
     public int maxHealth = 50;
@@ -23,6 +25,9 @@ public class UIManager : MonoBehaviour
         currentHealth = maxHealth;
         UpdateHPUI();
         bookMark = 1;
+        reMana = 2;
+        manaBar[0].SetActive(true);
+        manaBar[1].SetActive(true);
         spellPages[1].SetActive(false);
         spellPages[2].SetActive(false);
         spellPages[3].SetActive(false);
@@ -41,6 +46,50 @@ public class UIManager : MonoBehaviour
         {
             UpdateSpellUI();
         }
+
+        if (GameManager.staMana < reMana)
+        {
+            DepleteMana();
+        }
+
+        else if (GameManager.staMana > reMana)
+        {
+            FillMana();
+        }
+    }
+
+    private void FillMana()
+    {
+        if (GameManager.staMana == 1)
+        {
+            manaBar[0].SetActive(true);
+            manaBar[1].SetActive(false);
+        }
+
+        else if (GameManager.staMana == 2)
+        {
+            manaBar[0].SetActive(true);
+            manaBar[1].SetActive(true);
+        }
+
+        reMana = GameManager.staMana;
+    }
+
+    private void DepleteMana()
+    {
+        if (GameManager.staMana == 1)
+        {
+            manaBar[0].SetActive(true);
+            manaBar[1].SetActive(false);
+        }
+
+        else if (GameManager.staMana == 0)
+        {
+            manaBar[0].SetActive(false);
+            manaBar[1].SetActive(false);
+        }
+
+        reMana = GameManager.staMana;
     }
 
     public void TakeDamage(int amount)
