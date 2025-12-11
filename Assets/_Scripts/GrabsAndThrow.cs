@@ -142,6 +142,10 @@ public class GrabsAndThrow : MonoBehaviour
                 }
                 else
                 {
+                    if (UIManager.bookMark != 4)
+                    {
+                        UIManager.bookMark = 4;
+                    }
                     myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
                     myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
                 }
@@ -158,6 +162,10 @@ public class GrabsAndThrow : MonoBehaviour
             {
 
                 btnPress = false; //Not pressing a button when you stop pressing a button
+                if (UIManager.bookMark != 1)
+                {
+                    UIManager.bookMark = 1;
+                }
 
                 float timePct = secondsHeld / targetTimeHeld;
                 if (timePct >= 1.0f)
@@ -217,6 +225,11 @@ public class GrabsAndThrow : MonoBehaviour
 
         if (inHand) //If the player has an enemy in Hand, regardless of endLag/counterHit
         {
+            if (UIManager.bookMark != 5)
+            {
+                UIManager.bookMark = 5;
+            }
+
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
             {
                 btnPress = true;
@@ -230,18 +243,28 @@ public class GrabsAndThrow : MonoBehaviour
                 Instantiate(heldEnemy[theHaul - 1], transform.position, Quaternion.Euler(-45f, 0f, 0f));
                 btnPress = false;
                 theHaul = 0;
+                if (UIManager.bookMark != 1)
+                {
+                    UIManager.bookMark = 1;
+                }
                 inHand = false;
             }
 
             else if ((Input.GetKeyUp(crGrab) || Input.GetKeyUp(crGrab2)) && GameManager.fromPause) //And reset if the player is exiting pause
             {
                 GameManager.fromPause = false;
+                
             }
 
         }
 
         else if (lifted)
         {
+            if (UIManager.bookMark != 2 || UIManager.bookMark != 3)
+            {
+                UIManager.bookMark = 2;
+            }
+
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(crGrab) || Input.GetKeyDown(crGrab2))
             {
                 btnPress = true;
@@ -262,6 +285,10 @@ public class GrabsAndThrow : MonoBehaviour
                 }
                 else
                 {
+                    if (UIManager.bookMark != 3)
+                    {
+                        UIManager.bookMark = 3;
+                    }
                     //  myHands[0].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
                     //  myHands[1].GetComponent<Renderer>().material.color = Color.Lerp(Color.white, handShade, 1f);
                 }
@@ -285,6 +312,10 @@ public class GrabsAndThrow : MonoBehaviour
                     theHaul = 0;
                     lifted = false;
                     dash = false;
+                    if (UIManager.bookMark != 1)
+                    {
+                        UIManager.bookMark = 1;
+                    }
                     Invoke("grabReset", 0.25f);
                 }
 
@@ -305,6 +336,10 @@ public class GrabsAndThrow : MonoBehaviour
                         theHaul = 0;
                         lifted = false;
                         dash = false;
+                        if (UIManager.bookMark != 1)
+                        {
+                            UIManager.bookMark = 1;
+                        }
                         Invoke("grabReset", 0.25f);
 
                     }

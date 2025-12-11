@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI DebugCmb1TMP;
     public TextMeshProUGUI DebugCmb2TMP;
     public TextMeshProUGUI hpText;
+    public GameObject[] spellPages;
+    public static int bookMark;
 
     [Header("Health")]
     public int maxHealth = 50;
@@ -20,6 +22,11 @@ public class UIManager : MonoBehaviour
     {
         currentHealth = maxHealth;
         UpdateHPUI();
+        bookMark = 1;
+        spellPages[1].SetActive(false);
+        spellPages[2].SetActive(false);
+        spellPages[3].SetActive(false);
+        spellPages[4].SetActive(false);
     }
 
     void Update()
@@ -29,6 +36,11 @@ public class UIManager : MonoBehaviour
         DebugCmbTMP.text = GameManager.combineValue > 0.00001f ? GameManager.combineValue.ToString("#.000000") : "Nothing";
         DebugCmb1TMP.text = GameManager.combineValue1 > 0.00001f ? GameManager.combineValue1.ToString("#.000000") : "Nothing";
         DebugCmb2TMP.text = GameManager.combineValue2 > 0.00001f ? GameManager.combineValue2.ToString("#.000000") : "Nothing";
+
+        if (!spellPages[bookMark-1].activeSelf)
+        {
+            UpdateSpellUI();
+        }
     }
 
     public void TakeDamage(int amount)
@@ -40,6 +52,19 @@ public class UIManager : MonoBehaviour
 
         if (currentHealth <= 0)
             Die();
+    }
+
+    void UpdateSpellUI()
+    {
+        for (int i = 0; i < 5;  i++)
+        {
+            if(i+1 == bookMark)
+            spellPages[i].SetActive(true);
+
+            else
+            spellPages[i].SetActive(false);
+
+        }
     }
 
     void UpdateHPUI()
