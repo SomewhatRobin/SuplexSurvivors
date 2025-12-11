@@ -122,6 +122,32 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &41562953 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6493896328442254086, guid: fa3efa430f44cc940905a3b36439699a, type: 3}
+  m_PrefabInstance: {fileID: 545997649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &41562960
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41562953}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 39d091f25ca863b4b8440095d5a82f68, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &71911102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -562,7 +588,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6493896328442254086, guid: fa3efa430f44cc940905a3b36439699a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 41562960}
   m_SourcePrefab: {fileID: 100100000, guid: fa3efa430f44cc940905a3b36439699a, type: 3}
 --- !u!1001 &704781354
 PrefabInstance:
@@ -1167,10 +1196,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 149698293789321864, guid: b4e3395533c7d134798678ffb53daf4f, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6070261773186602540, guid: b4e3395533c7d134798678ffb53daf4f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1473,10 +1498,6 @@ PrefabInstance:
     - target: {fileID: 186742154573412934, guid: a87983f4a6fe17e469c2e8f1e723fcb1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1890232100193406411, guid: a87983f4a6fe17e469c2e8f1e723fcb1, type: 3}
-      propertyPath: speed
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3007839086183979473, guid: a87983f4a6fe17e469c2e8f1e723fcb1, type: 3}
       propertyPath: m_Name

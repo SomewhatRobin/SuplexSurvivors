@@ -269,6 +269,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (!hiSpeed)
         {
+            pAnim.Play("Dashing");
             iFrames = true;
             StopKB();
             //Set the direction of the dash towards the target, Raise movement speed, and go REAL fast.

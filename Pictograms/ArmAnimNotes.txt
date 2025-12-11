@@ -1,0 +1,33 @@
+Idle
+Keyframes 0, 56, 110
+
+Scale starts:
+PlayerSprite- x: 1.71, y: 1.71, z: 1.71
+
+Animation goes
+x: 1.71, y: 1.71, z: 1.71
+x: 1.61, y: 1.81, z: 1.71
+x: 1.71, y: 1.71, z: 1.71
+
+
+PB
+Keyframes 0, 6, 12, 35, 36, 54, 58, 64, 70, 73, 80
+
+Position starts:
+
+Hands
+x = 0.58893263 (R) / -0.58893263 (L)
+y = -0.14
+z = -0.42
+
+HeldAbove
+x = 0, y = -1.4, z = -0.2
+
+PlayerSprite
+x = 0, y = 0.21, z = 0
+
+Scale Starts:
+RHand- x: 0.3359684, y: 0.33596832, z: 0.33596832
+LHand- x: 0.3359684, y: 0.33596832, z: 0.33596832
+HeldAbove- x: 0.25, y: 0.25, z: 0.25
+PlayerSprite- x: 1.71, y: 1.71, z: 1.71

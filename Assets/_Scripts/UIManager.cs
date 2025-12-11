@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour
 
     void UpdateHPUI()
     {
-        hpText.text = $"{currentHealth}/{maxHealth} HP";
+        hpText.text = $"{currentHealth}/{maxHealth}";
     }
 
     void Die()

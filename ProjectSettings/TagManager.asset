@@ -15,6 +15,7 @@ TagManager:
   - EnemyS
   - EnemyT
   - PlayerWkPoint
+  - PlayerB
   layers:
   - Default
   - TransparentFX
