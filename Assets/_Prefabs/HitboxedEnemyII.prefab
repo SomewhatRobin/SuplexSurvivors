@@ -462,7 +462,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -5.29, z: 0}
-  m_LocalScale: {x: 0.7, y: 1, z: 1}
+  m_LocalScale: {x: 2.3, y: 1, z: 1.9}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5275385532403668737}
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcbd15920ac48d74e8a780317ee0cb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 5
   deltaSpeed: 3
   HP: 3
   atLethal: 0
@@ -553,6 +553,7 @@ MonoBehaviour:
   antiDumper: 0
   nextTierPrefab: {fileID: 3007839086183979473, guid: a87983f4a6fe17e469c2e8f1e723fcb1, type: 3}
   rb: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &2907323811261162829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,6 +569,7 @@ MonoBehaviour:
   damage: 20
   ui: {fileID: 0}
   bumpForce: 12
+  hasHit: 0
 --- !u!1 &8672961119358724362
 GameObject:
   m_ObjectHideFlags: 0

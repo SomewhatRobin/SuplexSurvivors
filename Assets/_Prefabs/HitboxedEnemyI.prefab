@@ -53,8 +53,20 @@ PrefabInstance:
       value: EnemyS
       objectReference: {fileID: 0}
     - target: {fileID: 4911265642551614688, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4911265642551614688, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
       propertyPath: m_TagString
       value: EnemyS
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736082619328995892, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736082619328995892, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 5736082619328995892, guid: a6b31884e493dce4cb207323e61faad2, type: 3}
       propertyPath: m_LocalPosition.y

@@ -314,6 +314,10 @@ public class PlayerControls : MonoBehaviour
 
     public void endInvuln()
     {
+        if (poBu && roDr)
+        {
+            return;
+        }
         iFrames = false;
     }
 

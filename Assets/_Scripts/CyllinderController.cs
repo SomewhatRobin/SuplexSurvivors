@@ -15,6 +15,8 @@ public class Chip : MonoBehaviour
     private Chip guestChip;                    // Reference to our guest chip
     private bool isGuestActive = false;
     private float guestTimer = 0f;
+    private float guestValue = -3.0f;
+    //private int combGuests, comb1Guests, comb2Guests = 0; //Guest combination count
 
     private bool hasCombined = false;          // Prevent double-combine
 
@@ -52,6 +54,7 @@ public class Chip : MonoBehaviour
             guestTimer += Time.deltaTime;
             if (guestTimer >= guestDuration)
                 RestoreHost();
+
         }
     }
 
@@ -101,24 +104,32 @@ public class Chip : MonoBehaviour
     private void CompareHosts(Chip other)
     {
         if (hostValue < other.hostValue)
-            BecomeGuest();
+         BecomeGuest(other.hostValue);
     }
 
     // =======================
     // GUEST LOGIC
     // =======================
-    private void BecomeGuest()
+    private void BecomeGuest(float gV)
     {
         if (guestChip == null) return;
 
         // Immediately mark as guest
         isHost = false;
         isGuestActive = true;
+        
+
         guestTimer = 0f;
+        guestValue = gV;
 
         // Swap GameObjects
         this.gameObject.SetActive(false);
         guestChip.gameObject.SetActive(true);
+        if (enemyRoot == null)
+        {
+             enemyRoot = transform.root.gameObject;
+        }
+       
 
         // Ensure guest chip is properly active
         guestChip.isHost = false;
@@ -151,8 +162,34 @@ public class Chip : MonoBehaviour
     {
         if (isHost && currentGuests.Count >= 3 && !hasCombined)
         {
+            CombineSignal();
             DoCombine();
         }
+    }
+
+    private void CombineSignal()
+    {
+        //Handles up to 3 simultaneous combinations, cycles combination values when one has been used.
+        if (GameManager.combineValue < 0.00001f)
+        {
+            GameManager.combineValue = hostValue;
+        }
+        else if (GameManager.combineValue > 0.00001f && GameManager.combineValue1 < 0.00001f)
+        {
+            GameManager.combineValue1 = hostValue;
+            GameManager.combineValue = 0f;
+        }
+        else if (GameManager.combineValue1 > 0.00001f && GameManager.combineValue2 < 0.00001f)
+        {
+            GameManager.combineValue2 = hostValue;
+            GameManager.combineValue1 = 0f;
+        }
+        else
+        {
+            GameManager.combineValue = hostValue;
+            GameManager.combineValue2 = 0f;
+        }
+
     }
 
     private void DoCombine()
