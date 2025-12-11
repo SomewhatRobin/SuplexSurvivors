@@ -37,9 +37,12 @@ public class PlayerControls : MonoBehaviour
     public GameObject armTango;
     public GameObject hurtBox;
     public GameObject[] whatHit;
+    public AudioSource audioSrc;
+    public AudioSource audioSrc2;
+    public AudioSource audioSrc3;
     [Header("Display & Animation Logic")]
     public bool flipSprite;
-    public bool poBu, roDr; //For Animations
+    public bool poBu, roDr, dying; //For Animations
     public int lastHeld; //Also for anims
 
     [Header("The Horror")]
@@ -48,6 +51,7 @@ public class PlayerControls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dying = false;
         iFrames = false;
         dashTime = 0.00f;
         rb = GetComponent<Rigidbody>();
@@ -70,9 +74,21 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Velocity check
-     
-        if (rb.velocity.magnitude > 0.05f && !kbApplied && !(hiSpeed || !doneDash) ) //If the player was hit by an enemy (and isn't dashing)
+        if (UIManager._gameOver && !dying)
+        {
+            dying = true;
+            pAnim.Play("Die");
+            return;
+        }
+
+        else if (UIManager._gameOver && dying)
+        {
+            return;
+        }
+
+            //Velocity check
+
+            if (rb.velocity.magnitude > 0.05f && !kbApplied && !(hiSpeed || !doneDash)) //If the player was hit by an enemy (and isn't dashing)
         {
             Debug.LogWarning($"Knockback Applied to Player! Vector is [{rb.velocity.x}, {rb.velocity.y}, {rb.velocity.z}].");
             kbDir = rb.velocity.normalized;
@@ -139,6 +155,7 @@ public class PlayerControls : MonoBehaviour
         if (!roDr && grabThrows.dunkin)
         {
             pAnim.Play("RD");
+            audioSrc.Play();
             roDr = true;
             speed = rollForce * 3.00f;
             
@@ -147,6 +164,7 @@ public class PlayerControls : MonoBehaviour
         else if (!poBu && grabThrows.tech48)
         {
             pAnim.Play("PB");
+            audioSrc.Play();
             poBu = true;
             speed = rollForce * 0.05f;
             //Also do the SM64 thing
@@ -269,6 +287,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (!hiSpeed)
         {
+            audioSrc3.Play();
             pAnim.Play("Dashing");
             iFrames = true;
             StopKB();
@@ -342,9 +361,16 @@ public class PlayerControls : MonoBehaviour
 
     public void emptyHands(int slamMult) //Hides the held enemy, gives score according to a multiplier, and spawns the enemy's spinning body
     {
+        audioSrc.Play();
+        slamHeal();
         grabThrows.myHands[2].SetActive(false);
         GameManager.Score += 10 * slamMult * lastHeld;
         Instantiate(whatHit[lastHeld - 1], transform.position, Quaternion.Euler(48f, 0f, 0f)); //SHOULD spawn the defeated enemy after a slam
+    }
+
+    public static void slamHeal()
+    {
+        UIManager.haveHeal = true;
     }
 
     public void stepAside(float midSpeed) //Gives the player a little speed after a PB, or slows them down a bit after RD.

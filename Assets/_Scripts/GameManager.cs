@@ -8,10 +8,10 @@ public class GameManager : MonoBehaviour
     public static int HP = 5; //Short for "Hand Points"
     public static int startHP = 5;
     public static int staMana = 2;
-    public static bool _gameOver = false;
+    
     public static bool isPaused = false;
     public static bool fromPause = false;
-    public static float combineValue, combineValue1, combineValue2 = 0.00f;
+    public static float combineValue, combineValue1, combineValue2 = 0.00f; //Possibly useless
     public GameObject PauseMenu;
 
     // Start is called before the first frame update
@@ -52,25 +52,10 @@ public class GameManager : MonoBehaviour
         Score = 0;
         HP = startHP;
         staMana = 2;
-        _gameOver = false;
+        //_gameOver = false;
         isPaused = false;
     }
 
-
-    public static void SubtractLife() //static methods can only mess with static variables
-    {
-        HP--;
-        Debug.Log($"Hit Enemy! HP Left: {HP}");
-
-        if (HP == 0)
-        {
-            //Game Over
-            _gameOver = true;
-            Debug.Log("Game Over!");
-        }
-
-
-    }
 
     //eof
 }

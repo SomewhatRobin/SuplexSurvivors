@@ -7,18 +7,22 @@ public class UIManager : MonoBehaviour
 {
     [Header("UI Text")]
     public TextMeshProUGUI ScoreboardTMP;
+    public TextMeshProUGUI FinalScoreTMP;
     public TextMeshProUGUI DebugCmbTMP;
     public TextMeshProUGUI DebugCmb1TMP;
     public TextMeshProUGUI DebugCmb2TMP;
     public TextMeshProUGUI hpText;
     public GameObject[] spellPages;
     public GameObject[] manaBar;
+    public GameObject gameOverlay;
     public static int bookMark;
     public int reMana;
 
     [Header("Health")]
     public int maxHealth = 50;
     public int currentHealth;
+    public static bool haveHeal;
+    public static bool _gameOver = false;
 
     void Start()
     {
@@ -26,12 +30,15 @@ public class UIManager : MonoBehaviour
         UpdateHPUI();
         bookMark = 1;
         reMana = 2;
+        haveHeal = false;
+        _gameOver = false;
         manaBar[0].SetActive(true);
         manaBar[1].SetActive(true);
         spellPages[1].SetActive(false);
         spellPages[2].SetActive(false);
         spellPages[3].SetActive(false);
         spellPages[4].SetActive(false);
+        gameOverlay.SetActive(false);
     }
 
     void Update()
@@ -41,6 +48,11 @@ public class UIManager : MonoBehaviour
         DebugCmbTMP.text = GameManager.combineValue > 0.00001f ? GameManager.combineValue.ToString("#.000000") : "Nothing";
         DebugCmb1TMP.text = GameManager.combineValue1 > 0.00001f ? GameManager.combineValue1.ToString("#.000000") : "Nothing";
         DebugCmb2TMP.text = GameManager.combineValue2 > 0.00001f ? GameManager.combineValue2.ToString("#.000000") : "Nothing";
+
+        if (haveHeal)
+        {
+            HealHP();
+        }
 
         if (!spellPages[bookMark-1].activeSelf)
         {
@@ -103,6 +115,14 @@ public class UIManager : MonoBehaviour
             Die();
     }
 
+    public void HealHP()
+    {
+        currentHealth += 5;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHPUI();
+        haveHeal = false;
+    }
+
     void UpdateSpellUI()
     {
         for (int i = 0; i < 5;  i++)
@@ -123,6 +143,9 @@ public class UIManager : MonoBehaviour
 
     void Die()
     {
+        _gameOver = true;
         Debug.Log("Player has died!");
+        gameOverlay.SetActive(true);
+        FinalScoreTMP.text = GameManager.Score.ToString();
     }
 }
