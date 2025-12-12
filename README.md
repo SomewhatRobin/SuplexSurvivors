@@ -1,30 +1,22 @@
 #### MCS 1643 README file
-# **Replace this Project Name**
+# **Suplex Survivors**
 
-#### Author: *Replace this with your name*
+#### Author: *Jacob Robinson & Carlota Zafra*
 
-##### Modified: *2024-09-06*
+##### Modified: *2025-12-11*
 
 <br>
-
-#### Questions for tutorial assignments: (remove this section for projects)
-**Which tutorial is this? **
-
-**1. Did you make any additions beyond the tutorial requirements? If so, what?**
-> &nbsp;
-><i>(let me know what to look for, any additional keys to use, etc.)</i>   
-> &nbsp;
-
-**2. Did anything give you particular trouble?
-> &nbsp;
-><i>(If something in your assignment doesn't work or you think part of the tutorial can be improved, explain here)</i>   
-> &nbsp;
 
 #### Questions for projects: (remove this section for tutorial assignments)
 **1. What are the controls to your game? How do we play?**   
 
 > &nbsp;
-><i>(art, music, etc. Just tell us where you got it, link it here)</i>   
+><i>The game can be played with either a controller or on the keyboard.
+WASD on keyboard/Left Stick on controller to move
+Space Bar / A or B for every grab and/or throw.
+The move that the player character uses depends on whether the attack button is pressed or held until a target time.
+The move that will be used if the player releases the button is indicated in the top right corner of the screen.
+</i>   
 > &nbsp;
  
 
@@ -32,7 +24,11 @@
 **2. What creative additions/enhancements did you make? How can we find them?**   
 
 > &nbsp;
-><i>(If you don't tell us how to experience them, we could easily miss them.)</i>   
+><i>After finding a bug where the player can become vulnerable during either Rubble Dump or (Bigby, p. 360),
+ Jacob made the animation for both spells move the hurtbox above the enemies, making the player effectively invincible as long as
+ they would be when the bug hadn't happened.
+ 
+ There is background art, believe it or not, (hastily) drawn by Jacob. This was added to make it easier to tell where one is moving.</i>   
 > &nbsp;
  
 
@@ -40,7 +36,13 @@
 **3. Any assets used that you didn't create yourself?**   
 
 > &nbsp;
-><i>(art, music, etc. Just tell us where you got it, link it here)</i>   
+><i>The background for the main menu was taken from ( https://discover.hubpages.com/religion-philosophy/Do-People-Burn-In-Hell-For-Eternity ), found in a google search.
+The image for (Bigby, p. 360) was taken from dustloop ( https://www.dustloop.com/w/GGST/Potemkin#Potemkin_Buster )
+The image for Rubble Dump was taken from the kirbyWiki ( https://wikirby.com/wiki/Suplex#Gallery , Ability star from Star Allies )
+The title text was made from a mashup of the title screen art from Vampire Survivors (full link further down),
+and the Suplex ability art from Kirby Super Star ( https://wikirby.com/wiki/Suplex#Gallery )
+The sound effects were made from samples of the instruments in Kirby's Dream Land 3.
+</i>   
 > &nbsp;
  
 
@@ -48,7 +50,12 @@
 **4. Did you receive help from anyone outside this class or from anyone in this class that is not in a group with you?**   
 
 > &nbsp;
-><i>(list their names and what they helped with)</i>   
+><i>Playtesting was done by:
+Matthew Robinson
+Zachary Robinson
+Rebecca Robinson
+Ross Lewerenz
+...and more</i>   
 > &nbsp;
  
 
@@ -64,7 +71,17 @@
 **6. Did you get help from any online websites, videos, or tutorials?**   
 
 > &nbsp;
-><i>(link them here)</i>   
+><i>Unity Help Forums
+
+Youtube Tutorials for:
+Billboarding (https://www.youtube.com/watch?v=FjJJ_I9zqJo)
+Unity Pausing (https://www.youtube.com/watch?v=UGh4exLCFRg)
+Menus with Controller Input (https://www.youtube.com/watch?v=SXBgBmUcTe0)
+Scripting with Animator (https://www.youtube.com/watch?v=I_ilRHeHvIs)
+How to use Animation Events (https://www.youtube.com/watch?v=92P2Zz6K9vA)
+Animation Position Issues Fix (https://www.youtube.com/watch?v=B0sZVuuZHeQ)
+
+</i>   
 > &nbsp;
  
 
@@ -72,7 +89,10 @@
 **7. What trouble did you have with this project?**   
 
 > &nbsp;
-><i>(Even if you didn't complete the project, you can still get partial credit if you tell us about why it's incomplete.)</i>   
+><i>Jacob had trouble getting the gameObjects to work in a way that made animating less tedious (The PlayerSprite was a separate object from other components, was the main object that got animated)
+There were also issues with getting arm movement working for the "Launch Grab" spell, which can be seen at lower fps during gameplay. 
+Additionally, the jump sound effect plays twice when using RD or PB.
+Getting each grab to be functional without preventing further actions from the player was difficult.</i>   
 > &nbsp;
  
 
@@ -80,7 +100,7 @@
 **8. Is there anything else we should know?**   
 
 > &nbsp;
->*No answer given.*
+>*I didn't get to add my dog's growling this time around, but I did get emotionally attached to this project. -Jacob*
 > &nbsp;
 
 ---
