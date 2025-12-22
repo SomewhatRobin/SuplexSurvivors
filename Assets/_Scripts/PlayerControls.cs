@@ -68,7 +68,7 @@ public class PlayerControls : MonoBehaviour
         poBu = false; 
         roDr = false;
         kbApplied = false;
-       lastHeld = 0;
+        lastHeld = 0;
     }
 
     // Update is called once per frame
