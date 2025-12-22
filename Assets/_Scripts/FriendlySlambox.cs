@@ -18,7 +18,7 @@ public class FriendlySlambox : MonoBehaviour
         {
             GameManager.Score += 10; //PlaceHolder value, can use EXP instead/also spawn exp drops for stuff like this
 
-            Instantiate(whatHit[0], transform.position, Quaternion.Euler(48f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
+            Instantiate(whatHit[0], collision.transform.position, Quaternion.Euler(48f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
            if (collision.transform.parent.gameObject != null)
            {
                 Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit
@@ -31,7 +31,7 @@ public class FriendlySlambox : MonoBehaviour
         {
             GameManager.Score += 20; //PlaceHolder value, can use EXP instead/also spawn exp drops for stuff like this
 
-            Instantiate(whatHit[1], transform.position, Quaternion.Euler(48f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
+            Instantiate(whatHit[1], collision.transform.position, Quaternion.Euler(48f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
             if (collision.transform.parent.gameObject != null)
             {
                 Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit
@@ -52,7 +52,7 @@ public class FriendlySlambox : MonoBehaviour
                     if (hitEnemy.atLethal) //If the enemy is at Lethal/ can be KO'd by the next hit
                     {
                         GameManager.Score += 50; //PlaceHolder value, can use EXP instead/also spawn exp drops for stuff like this
-                        Instantiate(whatHit[2], transform.position, Quaternion.Euler(61.6f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
+                        Instantiate(whatHit[2], collision.transform.position, Quaternion.Euler(61.6f, 0f, 0f)); //Can have hardcoded numbers instead of variables for the prefab Arr., thanks to else if structure
                         if (collision.transform.parent.gameObject != null)
                         {
                             Destroy(collision.transform.parent.gameObject); //Also get rid of the enemy that was hit

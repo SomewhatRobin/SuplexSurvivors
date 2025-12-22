@@ -1043,6 +1043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb985dc76aa73b46b695e04754b6808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crPause: 337
   PauseMenu: {fileID: 1541077517}
 --- !u!1 &396288647 stripped
 GameObject:
