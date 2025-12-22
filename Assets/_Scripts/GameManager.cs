@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     public static int HP = 5; //Short for "Hand Points"
     public static int startHP = 5;
     public static int staMana = 2;
-    
+
+    public KeyCode crPause; //Joystick Button 7 is Start [8bitdo sn30]
     public static bool isPaused = false;
     public static bool fromPause = false;
     public static float combineValue, combineValue1, combineValue2 = 0.00f; //Possibly useless
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
     {
         if (!isPaused)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(crPause) )
             {
                 Time.timeScale = 0;
                 PauseMenu.SetActive(true);
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
 
         else
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(crPause))
             {
                 PauseMenu.SetActive(false);
                 Time.timeScale = 1;

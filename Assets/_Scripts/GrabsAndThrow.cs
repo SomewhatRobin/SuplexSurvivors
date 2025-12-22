@@ -47,8 +47,8 @@ public class GrabsAndThrow : MonoBehaviour
     public Color handShade; 
 
     public KeyCode kbGrab; //These 3 are changable in Editor
-    public KeyCode crGrab;
-    public KeyCode crGrab2;
+    public KeyCode crGrab;  //Joystick Button 0 is B [8bitdo sn30]
+    public KeyCode crGrab2; //Joystick Button 1 is A [8bitdo sn30]
 
     //public int heldShade = 0;
     // Start is called before the first frame update
